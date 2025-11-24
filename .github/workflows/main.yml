@@ -60,31 +60,31 @@ jobs:
           # --- HenryChiao (General) ---
           mkdir -p "General_Config/HenryChiao"
           curl -s -o "General_Config/HenryChiao/MihomoAIO.yaml" \
-            "https://github.com/HenryChiao/MIHOMO_AIO/blob/main/CONFIG/General/MihomoAIO.yaml?raw=true"
+            "https://raw.githubusercontent.com/HenryChiao/MIHOMO_AIO/refs/heads/main/CONFIG/General/MihomoAIO.yaml"
           curl -s -o "General_Config/HenryChiao/MihomoProMax.yaml" \
-            "https://github.com/HenryChiao/MIHOMO_AIO/blob/main/CONFIG/General/MihomoProMax.yaml?raw=true"
+            "https://raw.githubusercontent.com/HenryChiao/MIHOMO_AIO/refs/heads/main/CONFIG/General/MihomoProMax.yaml"
           curl -s -o "General_Config/HenryChiao/MihomoProPlus.yaml" \
-            "https://github.com/HenryChiao/MIHOMO_AIO/blob/main/CONFIG/General/MihomoProPlus.yaml?raw=true"
+            "https://raw.githubusercontent.com/HenryChiao/MIHOMO_AIO/refs/heads/main/CONFIG/General/MihomoProPlus.yaml"
 
           # --- yyhhyyyyyy (SelfProxy) ---
           mkdir -p "General_Config/yyhhyyyyyy"
           curl -s -o "General_Config/yyhhyyyyyy/mihomo_single.yaml" \
-            "https://github.com/yyhhyyyyyy/selfproxy/blob/main/Mihomo/mihomo_single.yaml?raw=true"
+            "https://raw.githubusercontent.com/yyhhyyyyyy/selfproxy/refs/heads/main/Mihomo/mihomo_single.yaml"
           curl -s -o "General_Config/yyhhyyyyyy/mihomo_multi.yaml" \
-            "https://github.com/yyhhyyyyyy/selfproxy/blob/main/Mihomo/mihomo_multi.yaml?raw=true"
+            "https://raw.githubusercontent.com/yyhhyyyyyy/selfproxy/refs/heads/main/Mihomo/mihomo_multi.yaml"
 
           # --- liandu2024 (General/Fallback) ---
           mkdir -p "General_Config/liandu2024"
           curl -s -o "General_Config/liandu2024/clash-fallback.yaml" \
-            "https://github.com/liandu2024/little/blob/main/yaml/clash-fallback.yaml?raw=true"
+            "https://raw.githubusercontent.com/liandu2024/little/refs/heads/main/yaml/clash-fallback.yaml"
           curl -s -o "General_Config/liandu2024/clash-fallback-std.yaml" \
-            "https://github.com/liandu2024/little/blob/main/yaml/clash-fallback-std.yaml?raw=true"
+            "https://raw.githubusercontent.com/liandu2024/little/refs/heads/main/yaml/clash-fallback-std.yaml"
           curl -s -o "General_Config/liandu2024/clash-fallback-dialer.yaml" \
-            "https://github.com/liandu2024/little/blob/main/yaml/clash-fallback-dialer.yaml?raw=true"
+            "https://raw.githubusercontent.com/liandu2024/little/refs/heads/main/yaml/clash-fallback-dialer.yaml"
           curl -s -o "General_Config/liandu2024/clash-fallback-all.yaml" \
-            "https://github.com/liandu2024/little/blob/main/yaml/clash-fallback-all.yaml?raw=true"
+            "https://raw.githubusercontent.com/liandu2024/little/refs/heads/main/yaml/clash-fallback-all.yaml"
           curl -s -o "General_Config/liandu2024/clash-all-fallback.yaml" \
-            "https://github.com/liandu2024/little/blob/main/yaml/clash-all-fallback.yaml?raw=true"
+            "https://raw.githubusercontent.com/liandu2024/little/refs/heads/main/yaml/clash-all-fallback.yaml"
 
           # --- echs-top (General) ---
           mkdir -p "General_Config/echs-top"
@@ -94,7 +94,7 @@ jobs:
           # --- qichiyuhub (General) ---
           mkdir -p "General_Config/qichiyuhub"
           curl -s -o "General_Config/qichiyuhub/config.yaml" \
-            "https://github.com/qichiyuhub/rule/blob/main/config/mihomo/config.yaml?raw=true"
+            "https://raw.githubusercontent.com/qichiyuhub/rule/refs/heads/main/config/mihomo/config.yaml"
 
           # --- iKeLee ---
           mkdir -p "General_Config/iKeLee"
@@ -118,18 +118,18 @@ jobs:
           curl -s -o "Smart_Mode/HenryChiao/MihomoSmartProPlus.yaml" \
             "https://raw.githubusercontent.com/HenryChiao/MIHOMO_AIO/refs/heads/main/CONFIG/SMART/MihomoSmartProPlus.yaml"
           curl -s -o "Smart_Mode/HenryChiao/MihomoSmartAIO.yaml" \
-            "https://github.com/HenryChiao/MIHOMO_AIO/blob/main/CONFIG/SMART/MihomoSmartAIO.yaml?raw=true"
+            "https://raw.githubusercontent.com/HenryChiao/MIHOMO_AIO/refs/heads/main/CONFIG/SMART/MihomoSmartAIO.yaml"
           curl -s -o "Smart_Mode/HenryChiao/MihomoSmartProMax.yaml" \
-            "https://github.com/HenryChiao/MIHOMO_AIO/blob/main/CONFIG/SMART/MihomoSmartProMax.yaml?raw=true"
+            "https://raw.githubusercontent.com/HenryChiao/MIHOMO_AIO/refs/heads/main/CONFIG/SMART/MihomoSmartProMax.yaml"
 
           # --- liandu2024 (Smart) ---
           mkdir -p "Smart_Mode/liandu2024"
           curl -s -o "Smart_Mode/liandu2024/clash-fallback-smart-std.yaml" \
-            "https://github.com/liandu2024/little/blob/main/yaml/clash-fallback-smart-std.yaml?raw=true"
+            "https://raw.githubusercontent.com/liandu2024/little/refs/heads/main/yaml/clash-fallback-smart-std.yaml"
           curl -s -o "Smart_Mode/liandu2024/clash-all-smart.yaml" \
-            "https://github.com/liandu2024/little/blob/main/yaml/clash-all-smart.yaml?raw=true"
+            "https://raw.githubusercontent.com/liandu2024/little/refs/heads/main/yaml/clash-all-smart.yaml"
           curl -s -o "Smart_Mode/liandu2024/clash-all-fallback-smart.yaml" \
-            "https://github.com/liandu2024/little/blob/main/yaml/clash-all-fallback-smart.yaml?raw=true"
+            "https://raw.githubusercontent.com/liandu2024/little/refs/heads/main/yaml/clash-all-fallback-smart.yaml"
 
           # --- echs-top (Smart) ---
           mkdir -p "Smart_Mode/echs-top"
@@ -139,7 +139,7 @@ jobs:
           # --- qichiyuhub (Smart) ---
           mkdir -p "Smart_Mode/qichiyuhub"
           curl -s -o "Smart_Mode/qichiyuhub/smart.yaml" \
-            "https://github.com/qichiyuhub/rule/blob/main/config/mihomo/AI/smart.yaml?raw=true"
+            "https://raw.githubusercontent.com/qichiyuhub/rule/refs/heads/main/config/mihomo/AI/smart.yaml"
 
 
           # ==========================================
