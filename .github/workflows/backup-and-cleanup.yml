@@ -61,4 +61,4 @@ jobs:
           repository: ${{ github.repository }}
           retain_days: 3    # 保留最近 3 天的记录
           keep_minimum_runs: 3 # 每个工作流至少保留 3 个最新的记录
-          delete_workflow_pattern: "Update File Test" # (可选) 指定只清理特定的工作流，不写则清理所有
+          # delete_workflow_pattern: "Update File Test" # (可选) 指定只清理特定的工作流，不写则清理所有
