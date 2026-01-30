@@ -1,0 +1,182 @@
+name: Backup & Release
+
+on:
+  workflow_run:
+    workflows: ["Generate Documentation"]
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install Tree Tool
+        run: sudo apt-get install -y tree
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Prepare Timestamp
+        run: echo "TIMESTAMP=$(date +'%Y-%m-%d_%H-%M')" >> $GITHUB_ENV
+
+      - name: Generate Manifest and Archive
+        run: |
+          # 生成详细清单（含目录树）
+          python3 << 'PYTHON_SCRIPT'
+          import os
+          import subprocess
+
+          timestamp = "${{ env.TIMESTAMP }}"
+          
+          # 修改：只关注这三个目录
+          TARGET_DIRS = {
+              "THEYAMLS": "📁 YAML 配置目录 (THEYAMLS)",
+              "Overwrite/THEINI": "📁 INI 覆写配置 (THEINI)",
+              "Overwrite/THEOPENCLASH": "📁 OpenClash 覆写配置 (THEOPENCLASH)"
+          }
+
+          lines = []
+          lines.append(f"## 📦 Auto Backup")
+          lines.append(f"> 🕒 **Time:** {timestamp}")
+          lines.append(f"> 💾 **This release contains configs from:** THEYAMLS, THEINI, THEOPENCLASH\n")
+
+          def get_size_str(path):
+              try:
+                  size = os.path.getsize(path)
+                  if size < 1024: return f"{size} B"
+                  return f"{size/1024:.1f} KB"
+              except: return "N/A"
+
+          # 1. 生成文件清单表格
+          for folder, title in TARGET_DIRS.items():
+              if not os.path.exists(folder): 
+                  lines.append(f"### {title}")
+                  lines.append("_Directory not found_\n")
+                  continue
+              
+              lines.append(f"### {title}")
+              lines.append("| Path | Size |")
+              lines.append("| :--- | :--- |")
+              
+              has_files = False
+              for root, dirs, files in os.walk(folder):
+                  # 排除 .git 等隐藏目录
+                  dirs[:] = [d for d in dirs if not d.startswith('.')]
+                  for file in sorted(files):
+                      if file == "README.md" or file.startswith("."): continue
+                      full_path = os.path.join(root, file)
+                      rel_path = os.path.relpath(full_path, folder)
+                      size = get_size_str(full_path)
+                      lines.append(f"| `{rel_path}` | {size} |")
+                      has_files = True
+              
+              if not has_files:
+                  lines.append("| _No config files_ | - |")
+              
+              lines.append("")  # 空行分隔
+
+          # 2. 添加 Linux 标准树形目录结构
+          lines.append("## 📂 Directory Tree Structure")
+          lines.append("")
+          lines.append("```text")
+          
+          # 使用系统 tree 命令生成标准 Linux 目录树
+          tree_output = subprocess.run(
+              ["tree", "THEYAMLS", "Overwrite/THEINI", "Overwrite/THEOPENCLASH", 
+               "-L", "4", "--charset", "utf-8", "--dirsfirst"],
+              capture_output=True, text=True
+          )
+          
+          if tree_output.returncode == 0:
+              lines.append(tree_output.stdout.strip())
+          else:
+              # 如果 tree 失败，使用 Python 简易版本
+              for folder in TARGET_DIRS.keys():
+                  if os.path.exists(folder):
+                      lines.append(f"{folder}/")
+                      for root, dirs, files in os.walk(folder):
+                          level = root.replace(folder, '').count(os.sep)
+                          indent = ' ' * 2 * (level) + '├── '
+                          subindent = ' ' * 2 * (level + 1) + '├── '
+                          if level > 0:
+                              lines.append(f"{indent}{os.path.basename(root)}/")
+                          for file in sorted(files)[:10]:  # 限制显示避免过长
+                              lines.append(f"{subindent}{file}")
+                          if len(files) > 10:
+                              lines.append(f"{subindent}... and {len(files)-10} more files")
+          
+          lines.append("```")
+          lines.append("")
+
+          with open("release_body.md", "w", encoding="utf-8") as f:
+              f.write("\n".join(lines))
+          
+          print("Generated release_body.md with tree structure")
+          PYTHON_SCRIPT
+
+          # 打包指定三个目录（仅包含配置文件，排除 README）
+          sudo apt-get install -y zip -qq
+          zip -r "Config_Backup_${{ env.TIMESTAMP }}.zip" \
+            THEYAMLS \
+            Overwrite/THEINI \
+            Overwrite/THEOPENCLASH \
+            -x "*/README.md" \
+            -x "*/.git*" \
+            -x "*/.github*"
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "backup-${{ env.TIMESTAMP }}"
+          name: "📅 Auto Backup: ${{ env.TIMESTAMP }}"
+          body_path: release_body.md
+          files: Config_Backup_${{ env.TIMESTAMP }}.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  cleanup:
+    runs-on: ubuntu-latest
+    needs: release
+    if: always()
+    steps:
+      # 清理 Update Configs (只保留最近1次)
+      - name: Cleanup Update Configs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          retain_days: 0
+          keep_minimum_runs: 1
+          delete_workflow_pattern: "Update Configs"
+          
+      # 清理 Generate Documentation (只保留最近1次)
+      - name: Cleanup Generate Documentation
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          retain_days: 0
+          keep_minimum_runs: 1
+          delete_workflow_pattern: "Generate Documentation"
+          
+      # 清理 Backup & Release (只保留最近1次)
+      - name: Cleanup Backup & Release
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          retain_days: 0
+          keep_minimum_runs: 1
+          delete_workflow_pattern: "Backup & Release"
