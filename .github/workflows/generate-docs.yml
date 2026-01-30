@@ -1,4 +1,4 @@
-name: Generate Documentation
+Name: Generate Documentation
 
 on:
   workflow_run:
@@ -30,16 +30,18 @@ jobs:
       - name: Install dependencies
         run: pip install pyyaml
 
-      - name: Generate Category READMEs
+      - name: Generate Category READMEs (Fix Tables)
         run: |
           python3 << 'SCRIPT'
           import os
           import urllib.parse
           import yaml
           
+          # 防止 yaml 解析未知 tag 报错
           yaml.add_multi_constructor("!", lambda loader, suffix, node: None, Loader=yaml.SafeLoader)
 
           REPO_URL = "https://github.com/${{ github.repository }}/blob/main"
+          # 定义分类目录与标题
           CATEGORIES = {
               "THEYAMLS/Official_Examples": "Mihomo 官方示例 (Official)",
               "THEYAMLS/General_Config": "通用进阶配置 (General Config)",
@@ -63,6 +65,11 @@ jobs:
                   if size < 1024: return f"{size} B"
                   return f"{size/1024:.1f} KB"
               except: return "Unknown"
+
+          def escape_md(text):
+              """转义 Markdown 表格中的关键字符"""
+              if not isinstance(text, str): return str(text)
+              return text.replace("|", "\\|").replace("\n", " ")
 
           def read_file_content(file_path):
               content = ""
@@ -94,6 +101,7 @@ jobs:
                   info["port_mixed"] = safe_get(data, ["mixed-port"], "-")
                   info["port_ctrl"] = safe_get(data, ["external-controller"], "-")
                   
+                  # 端口显示优化
                   ports_list = []
                   p_mix = data.get("mixed-port")
                   if p_mix: ports_list.append(f"| Mixed (混合) | {p_mix} | HTTP/SOCKS |")
@@ -118,16 +126,19 @@ jobs:
                               ports_list.append(f"| 👂 {name} | {port} | {l_type} |")
                   
                   info["ports_display_lines"] = ports_list
+                  
+                  # 统计数量
                   groups = data.get("proxy-groups", [])
                   info["group_count"] = len(groups) if isinstance(groups, list) else 0
                   rules = data.get("rules", [])
                   info["rule_count"] = len(rules) if isinstance(rules, list) else 0
                   
+                  # 策略组概览
                   info["groups_raw"] = []
                   if isinstance(groups, list):
                       for pg in groups:
                           if isinstance(pg, dict):
-                              name = pg.get("name", "Unknown")
+                              name = escape_md(pg.get("name", "Unknown"))
                               type_ = pg.get("type", "select")
                               icon = "🚀"
                               if "auto" in type_ or "url-test" in type_: icon = "♻️"
@@ -136,6 +147,7 @@ jobs:
                               elif "select" in type_: icon = "👆"
                               info["groups_raw"].append(f"| {icon} {name} | `{type_}` |")
 
+                  # DNS 概览
                   info["dns_raw"] = []
                   dns = data.get("dns", {})
                   if isinstance(dns, dict) and dns.get("enable", False):
@@ -144,14 +156,16 @@ jobs:
                           for ns in nameservers:
                               if isinstance(ns, str):
                                   provider = "DoT" if "tls://" in ns else "DoH" if "https://" in ns else "UDP"
-                                  info["dns_raw"].append(f"| {provider} | `{ns}` |")
+                                  info["dns_raw"].append(f"| {provider} | `{escape_md(ns)}` |")
                   
                   return info
               except Exception as e:
                   return None
 
           def generate_category_readme(folder_path, title):
+              if not os.path.exists(folder_path): return None
               rel_folder = os.path.relpath(folder_path, ".")
+              
               all_files = []
               for root, dirs, files in os.walk(folder_path):
                   dirs[:] = [d for d in dirs if not d.startswith('.')]
@@ -161,8 +175,7 @@ jobs:
                           rel_path = os.path.relpath(full_path, folder_path)
                           all_files.append((rel_path, full_path))
               
-              if not all_files:
-                  return None
+              if not all_files: return None
 
               configs_data = {}
               for rel_path, full_path in all_files:
@@ -174,29 +187,34 @@ jobs:
                           "full_path": full_path
                       }
 
-              if not configs_data:
-                  return None
+              if not configs_data: return None
 
               lines = []
               lines.append(f"# 📂 {title}")
               lines.append("")
-              lines.append(f"[🔙 返回主页](../README.md)")
+              lines.append(f"[🔙 返回主页](../../README.md)") # 修正返回主页的相对路径
               lines.append("")
               lines.append("> 🤖 **自动技术分析报告** | Auto-generated Technical Report")
               lines.append("")
 
+              # --- 横向对比表格生成 (修复对齐问题) ---
               if len(configs_data) > 1:
                   lines.append("## ⚔️ 配置横向对比 (Comparison)")
                   lines.append("")
                   
-                  display_items = list(configs_data.items())[:10]
+                  display_items = list(configs_data.items())[:10] # 限制显示前10个防止表格过宽
                   headers = ["特性 / 文件"] + [f"`{os.path.basename(p)}`" for p, _ in display_items]
+                  
+                  # 1. Header
                   lines.append("| " + " | ".join(headers) + " |")
+                  # 2. Separator (关键：必须与Header列数一致)
                   lines.append("| :--- " + "| :--- " * len(display_items) + "|")
                   
+                  # 3. Size Row
                   size_row = ["**大小**"] + [d.get("file_size", "N/A") for _, d in display_items]
                   lines.append("| " + " | ".join(size_row) + " |")
                   
+                  # 4. Data Rows
                   rows = [
                       ("port_mixed", "混合端口"), ("port_ctrl", "面板端口"),
                       ("mode", "运行模式"), ("tun", "TUN 模式"),
@@ -211,14 +229,15 @@ jobs:
                       lines.append("| " + " | ".join(row_content) + " |")
                   lines.append("")
 
+              # --- 详细内容 ---
               lines.append("## 📄 配置文件详解 (Details by Author)")
               lines.append("")
               
               by_author = {}
               for rel_path, data in configs_data.items():
+                  # 假设一级目录名为作者名
                   author = rel_path.split(os.sep)[0] if os.sep in rel_path else "Unknown"
-                  if author not in by_author:
-                      by_author[author] = []
+                  if author not in by_author: by_author[author] = []
                   by_author[author].append((rel_path, data))
               
               for author, items in sorted(by_author.items()):
@@ -228,6 +247,7 @@ jobs:
                   for rel_path, data in items:
                       filename = os.path.basename(rel_path)
                       info = data["parsed"]
+                      # 构建 Raw 链接
                       file_url = f"{REPO_URL}/{rel_folder}/{urllib.parse.quote(rel_path.replace(os.sep, '/'))}"
                       
                       lines.append(f"#### 📝 {filename}")
@@ -235,23 +255,25 @@ jobs:
                       
                       port_lines = info.get("ports_display_lines", [])
                       if port_lines:
-                          lines.append("- **端口配置**:")
+                          lines.append("")
+                          lines.append("**端口配置**:")
+                          lines.append("")
                           lines.append("| 类型 | 端口 | 说明 |")
                           lines.append("| :--- | :--- | :--- |")
-                          for line in port_lines:
-                              lines.append(line)
+                          lines.extend(port_lines)
                           lines.append("")
                       
                       groups_raw = info.get("groups_raw", [])
                       if groups_raw:
                           lines.append(f"<details>")
-                          lines.append(f"<summary>🔎 策略组架构 ({len(groups_raw)}个)</summary>")
-                          lines.append("")
+                          lines.append(f"<summary>🔎 策略组架构 ({len(groups_raw)}个) - 点击展开</summary>")
+                          lines.append("") # 必须有空行
                           lines.append("| 策略组 | 类型 |")
                           lines.append("| :--- | :--- |")
                           lines.extend(groups_raw[:15])
                           if len(groups_raw) > 15:
                               lines.append(f"| ... | 还有 {len(groups_raw)-15} 个 |")
+                          lines.append("") # 必须有空行
                           lines.append("</details>")
                           lines.append("")
                   lines.append("---")
@@ -260,72 +282,75 @@ jobs:
               return "\n".join(lines)
 
           for folder_name, title in CATEGORIES.items():
-              if os.path.isdir(folder_name):
-                  readme_content = generate_category_readme(folder_name, title)
-                  if readme_content:
-                      readme_path = os.path.join(folder_name, "README.md")
-                      with open(readme_path, "w", encoding="utf-8") as f:
-                          f.write(readme_content)
-                      print(f"✅ Generated: {readme_path}")
+              readme_content = generate_category_readme(folder_name, title)
+              if readme_content:
+                  readme_path = os.path.join(folder_name, "README.md")
+                  with open(readme_path, "w", encoding="utf-8") as f:
+                      f.write(readme_content)
+                  print(f"✅ Generated Report: {readme_path}")
           SCRIPT
 
-      - name: Generate Root README
+      - name: Update Root README (Preserve Manual Content)
         run: |
           python3 << 'SCRIPT'
           import os
           import re
 
+          # 定义锚点，用于识别自动插入区域
+          START_MARKER = ""
+          END_MARKER = ""
+
+          def get_existing_readme():
+              if os.path.exists("README.md"):
+                  with open("README.md", "r", encoding="utf-8") as f:
+                      return f.read()
+              return ""
+
           def parse_shell_script(script_path):
-              if not os.path.exists(script_path):
-                  return []
-              
-              with open(script_path, 'r', encoding='utf-8', errors='ignore') as f:
-                  content = f.read()
+              if not os.path.exists(script_path): return []
+              try:
+                  with open(script_path, 'r', encoding='utf-8', errors='ignore') as f:
+                      content = f.read()
+              except: return []
               
               results = []
+              # 匹配更广泛的 URL 模式
               pattern = r'(https?://[^|\s"\']+)\|([^"\n]+?\.ya?ml)'
               matches = re.findall(pattern, content)
               
               for url, output_path in matches:
                   output_path = output_path.strip()
-                  
+                  # 简单的作者提取逻辑
                   if 'raw.githubusercontent.com' in url:
                       parts = url.split('/')
                       author = parts[4] if len(parts) > 4 else 'unknown'
                   elif 'github.com' in url:
                       parts = url.split('/')
                       author = parts[3] if len(parts) > 3 else 'unknown'
-                  elif 'gist.github.com' in url:
-                      parts = url.split('/')
-                      author = parts[3] if len(parts) > 3 else 'gist'
                   else:
-                      author = url.split('/')[2].split('.')[0]
+                      author = 'External'
                   
                   category = 'Other'
-                  if 'General_Config' in output_path:
-                      category = 'General'
-                  elif 'Smart_Mode' in output_path:
-                      category = 'Smart'
-                  elif 'Mobile_Modules' in output_path:
-                      category = 'Mobile'
-                  elif 'Official_Examples' in output_path:
-                      category = 'Official'
+                  if 'General_Config' in output_path: category = 'General'
+                  elif 'Smart_Mode' in output_path: category = 'Smart'
+                  elif 'Mobile_Modules' in output_path: category = 'Mobile'
+                  elif 'Official_Examples' in output_path: category = 'Official'
                   
                   filename = os.path.basename(url)
-                  parts = url.split('/')
-                  if 'raw.githubusercontent.com' in url and len(parts) >= 5:
-                      repo_url = f"https://github.com/{parts[3]}/{parts[4]}"
-                  elif 'github.com' in url and len(parts) >= 5:
-                      repo_url = f"https://github.com/{parts[3]}/{parts[4]}"
-                  else:
-                      repo_url = url
                   
+                  # 简单的仓库链接推断
+                  parts = url.split('/')
+                  if len(parts) >= 5 and ('github' in url):
+                      source_repo = f"https://github.com/{parts[3]}/{parts[4]}"
+                  else:
+                      source_repo = url
+
                   results.append({
                       'author': author,
                       'filename': filename,
                       'output': output_path.replace('THEYAMLS/', ''),
                       'category': category,
-                      'source_repo': repo_url,
+                      'source_repo': source_repo,
                       'full_url': url
                   })
               return results
@@ -341,106 +366,83 @@ jobs:
           for cat, script in scripts_map.items():
               all_data[cat] = parse_shell_script(script)
 
-          author_desc = {
-              'HenryChiao': '全能型配置，整合多种策略；Pro系列策略组更加细化',
-              '666OS': '规则策略多而全，格式美观；OneTouch 为一键连精简版',
-              'JohnsonRan': '经典大众配置，含国家分组；包含去广告等实用功能',
-              'Lanlan13-14': '涵盖全量版、精简版(Lite)及去广告版(NoAd)',
-              'liandu2024': '侧重高可用性 (Fallback)，自动切换故障节点',
-              'Yiteei': '注释极其完整，结构清晰，适合进阶学习与魔改',
-              'ClashConnectRules': '社区自用配置，持续更新',
-              'yyhhyyyyyy': '自用代理配置，结构简单',
-              'echs-top': '社区热门 Smart 配置',
-              'qichiyuhub': '侧重 AI 与智能分流策略',
-              'iKeLee': '经典 Clash 模板风格',
-              'sunfing': '经典 Clash 模板风格',
-              'liuran001': '经典 Clash 模板风格',
-              'wanswu': '经典 Clash 模板风格',
-              'GitMetaio': '新手友好、开箱即用，规则分组大众化且清晰',
-              'boxproxy': '经典 Box 的分支版本，加入 WiFi 启停逻辑',
-              'akashaProxy': '简单完备的配置结构，包含详细的国家/地区分组',
-              'AXEVO': '极简风格配置，模块化设计，轻量高效',
-              'Metacubex': 'Mihomo 官方示例，最纯净基础'
+          # --- 生成自动内容块 ---
+          new_content_lines = []
+          new_content_lines.append(START_MARKER)
+          new_content_lines.append("## 📂 自动同步配置列表 (Auto-synced Configs)")
+          new_content_lines.append("> 本列表由 GitHub Actions 每日自动生成，最后更新时间: " + os.popen('date -u +"%Y-%m-%d %H:%M UTC"').read().strip())
+          new_content_lines.append("")
+          
+          # 快速导航表
+          new_content_lines.append("### 🚀 快速导航")
+          new_content_lines.append("| 分类 | 说明 | 配置数量 | 文档入口 |")
+          new_content_lines.append("| :--- | :--- | :--- | :--- |")
+          
+          cat_info = {
+              'General_Config': ('通用进阶', 'PC/Mac/手机通用', 'THEYAMLS/General_Config/README.md'),
+              'Smart_Mode': ('Smart/路由', '需配合魔改内核/软路由', 'THEYAMLS/Smart_Mode/README.md'),
+              'Mobile_Modules': ('Android 模块', 'Root 用户专用', 'THEYAMLS/Mobile_Modules/README.md'),
+              'Official_Examples': ('官方示例', '纯净基础配置', 'THEYAMLS/Official_Examples/README.md')
           }
-
-          lines = []
-          lines.append("# 📦 mihomo_yamls")
-          lines.append("")
-          lines.append("> 🔄 **自动同步的 Mihomo (Clash.Meta) 配置文件仓库**")
-          lines.append("> ")
-          lines.append("> 本仓库通过 GitHub Actions 每日自动同步各上游作者的配置文件，并生成技术分析文档与 OpenClash 覆写配置。")
-          lines.append("")
-          lines.append("## 📂 快速导航")
-          lines.append("")
-          lines.append("| 分类 | 说明 | 配置数量 | 文档 |")
-          lines.append("| :--- | :--- | :--- | :--- |")
           
-          for cat_key in ['General_Config', 'Smart_Mode', 'Mobile_Modules', 'Official_Examples']:
-              items = all_data.get(cat_key, [])
-              count = len(items)
+          for key, (name, desc, link) in cat_info.items():
+              count = len(all_data.get(key, []))
               if count > 0:
-                  title_map = {
-                      'General_Config': '通用进阶配置',
-                      'Smart_Mode': 'Smart 模式 / 路由专用',
-                      'Mobile_Modules': 'Android 模块专用',
-                      'Official_Examples': 'Mihomo 官方示例'
-                  }
-                  desc_map = {
-                      'General_Config': '适合 PC、Mac 及普通手机端',
-                      'Smart_Mode': '需配合 Smart 魔改内核使用',
-                      'Mobile_Modules': '适合已 Root 的 Android 设备',
-                      'Official_Examples': '纯净基础，适合学习'
-                  }
-                  lines.append(f"| **{title_map[cat_key]}** | {desc_map[cat_key]} | {count} 个 | [查看](THEYAMLS/{cat_key}/README.md) |")
+                  new_content_lines.append(f"| **{name}** | {desc} | {count} | [查看详情]({link}) |")
           
-          lines.append("")
-          lines.append("---")
-          lines.append("")
+          new_content_lines.append("")
+          new_content_lines.append("---")
+          new_content_lines.append("")
 
+          # 详细列表
           categories = [
-              ('General_Config', '通用进阶配置 (General Config)', '适合 PC、Mac 及普通手机端使用的全功能配置。'),
-              ('Smart_Mode', 'Smart 模式 / 路由专用 (Smart Mode)', '专为 Smart 核心、OpenClash 或软路由环境优化。需配合 Smart 魔改内核使用。'),
-              ('Mobile_Modules', 'Android 模块专用 (Mobile Modules)', '适合已获取 Root 权限 (Magisk/KernelSU/APatch) 的用户。'),
-              ('Official_Examples', 'Mihomo 官方 Wiki 示例 (Official)', '最纯净、最基础，适合从零开始构建或学习配置语法。')
+              ('General_Config', '通用进阶配置'),
+              ('Smart_Mode', 'Smart 模式 / 路由专用'),
+              ('Mobile_Modules', 'Android 模块专用'),
+              ('Official_Examples', '官方示例')
           ]
 
-          for cat_key, title, desc in categories:
+          for cat_key, title in categories:
               items = all_data.get(cat_key, [])
-              if not items:
-                  continue
+              if not items: continue
               
-              lines.append(f"### {title}")
-              lines.append(f"> {desc}")
-              lines.append("")
-              lines.append("| 👤 作者 (Author) | 📦 配置清单 (Configs) | 📝 描述 (Description) | 🔗 溯源 (Source) |")
-              lines.append("| :--- | :--- | :--- | :--- |")
+              new_content_lines.append(f"### {title}")
+              new_content_lines.append("| 👤 作者 | 📄 文件 | 🔗 来源 |")
+              new_content_lines.append("| :--- | :--- | :--- |")
               
+              # 按作者聚合
               by_author = {}
               for item in items:
                   auth = item['author']
-                  if auth not in by_author:
-                      by_author[auth] = []
+                  if auth not in by_author: by_author[auth] = []
                   by_author[auth].append(item)
               
               for author, files in sorted(by_author.items()):
-                  file_links = "<br>".join([
-                      f"📄 [`{f['filename']}`](THEYAMLS/{f['output']})" 
-                      for f in files
-                  ])
-                  
-                  description = author_desc.get(author, '社区精选配置')
-                  repo_name = files[0]['source_repo'].split('/')[-1] if '/' in files[0]['source_repo'] else author
-                  source_link = f"[{author}/{repo_name}]({files[0]['source_repo']})"
-                  
-                  lines.append(f"| **{author}** | {file_links} | {description} | {source_link} |")
+                  file_links = "<br>".join([f"[`{f['filename']}`](THEYAMLS/{cat_key}/{f['output']})" for f in files])
+                  repo = files[0]['source_repo']
+                  repo_link = f"[Source]({repo})"
+                  new_content_lines.append(f"| **{author}** | {file_links} | {repo_link} |")
               
-              lines.append("")
-              lines.append("[🔙 返回顶部](#-mihomo_yamls)")
-              lines.append("")
+              new_content_lines.append("")
+
+          new_content_lines.append(END_MARKER)
+          new_block = "\n".join(new_content_lines)
+
+          # --- 将内容注入 README ---
+          current_readme = get_existing_readme()
+          
+          if START_MARKER in current_readme and END_MARKER in current_readme:
+              # 替换现有标记中的内容
+              pattern = re.compile(f"{re.escape(START_MARKER)}.*?{re.escape(END_MARKER)}", re.DOTALL)
+              final_readme = pattern.sub(new_block, current_readme)
+              print("✅ Updated existing section in README.md")
+          else:
+              # 如果没有标记，追加到文件末尾
+              final_readme = current_readme + "\n\n" + new_block
+              print("⚠️ Markers not found. Appended to end of README.md")
 
           with open("README.md", "w", encoding="utf-8") as f:
-              f.write("\n".join(lines))
-          print("✅ Generated root README.md")
+              f.write(final_readme)
           SCRIPT
 
       - name: Generate OpenClash Configs
@@ -501,6 +503,7 @@ jobs:
                           continue
                       
                       rel_path = os.path.relpath(root, SOURCE_BASE)
+                      # 修正 OpenClash 远程链接生成逻辑
                       raw_url = f"{REPO_RAW_BASE}/{SOURCE_BASE}/{rel_path.replace(os.sep, '/')}/{quote(filename)}"
                       
                       output_dir = os.path.join(OUTPUT_BASE, rel_path)
@@ -601,8 +604,10 @@ jobs:
               if not os.path.exists(script_path):
                   return {}
               
-              with open(script_path, 'r', encoding='utf-8') as f:
-                  content = f.read()
+              try:
+                  with open(script_path, 'r', encoding='utf-8') as f:
+                      content = f.read()
+              except: return {}
               
               urls_match = re.search(r'urls=\((.*?)\)', content, re.DOTALL)
               if not urls_match:
@@ -612,21 +617,14 @@ jobs:
               categories = {"ACL4Category": [], "Airport": [], "Ordinary": []}
               
               for url in urls:
-                  if 'ACL4SSR' in url:
-                      cat = "ACL4Category"
-                  elif 'jklolixxs' in url or '/customized/' in url or 'Mazeorz/airports' in url:
-                      cat = "Airport"
-                  else:
-                      cat = "Ordinary"
+                  if 'ACL4SSR' in url: cat = "ACL4Category"
+                  elif 'jklolixxs' in url or '/customized/' in url or 'Mazeorz/airports' in url: cat = "Airport"
+                  else: cat = "Ordinary"
                   
-                  if 'raw.githubusercontent.com' in url:
-                      author = url.split('/')[4]
-                  elif 'github.com' in url:
-                      author = url.split('/')[3]
-                  elif 'gist' in url:
-                      author = url.split('/')[3]
-                  else:
-                      author = url.split('/')[2].split('.')[0]
+                  if 'raw.githubusercontent.com' in url: author = url.split('/')[4]
+                  elif 'github.com' in url: author = url.split('/')[3]
+                  elif 'gist' in url: author = url.split('/')[3]
+                  else: author = 'External'
                   
                   categories[cat].append({
                       'author': author,
@@ -637,8 +635,7 @@ jobs:
 
           cat_data = parse_ini_script()
           base_path = "Overwrite/THEINI"
-          if not os.path.exists(base_path):
-              exit(0)
+          if not os.path.exists(base_path): exit(0)
 
           lines = [
               "# 📂 INI 覆写配置集合 (THEINI)",
@@ -656,37 +653,24 @@ jobs:
           }
 
           for cat_key, items in cat_data.items():
-              if not items:
-                  continue
+              if not items: continue
               title, desc = cat_names.get(cat_key, (cat_key, ""))
               lines.append(f"- **{title}**: {desc} ({len(items)} 个)")
           
           lines.append("")
           
           for cat_key, items in cat_data.items():
-              if not items:
-                  continue
+              if not items: continue
               title, desc = cat_names.get(cat_key, (cat_key, ""))
               lines.append(f"## {title}")
               lines.append(f"> {desc}")
               lines.append("")
-              lines.append("| 👤 作者/来源 | 📄 配置文件 | 🔗 原始链接 |")
+              lines.append("| 👤 作者 | 📄 配置文件 | 🔗 原始链接 |")
               lines.append("| :--- | :--- | :--- |")
               
               for item in items:
                   lines.append(f"| **{item['author']}** | `{item['filename']}` | [Source]({item['url']}) |")
               lines.append("")
-
-          lines.append("## 📊 目录结构")
-          lines.append("```text")
-          try:
-              import subprocess
-              tree_out = subprocess.run(["tree", base_path, "-L", "3", "--dirsfirst", "--charset", "utf-8"],
-                  capture_output=True, text=True)
-              lines.append(tree_out.stdout.strip())
-          except:
-              pass
-          lines.append("```")
 
           with open(os.path.join(base_path, "README.md"), "w", encoding="utf-8") as f:
               f.write("\n".join(lines))
