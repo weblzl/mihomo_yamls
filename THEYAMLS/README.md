@@ -81,3 +81,7 @@
 | **Metacubex Wiki** | 📄 [`mrs`](Official_Examples/Metacubex/rule-set_config.yaml)<br>📄 [`geox`](Official_Examples/Metacubex/geox_config.yaml) | [官方 Wiki](https://wiki.metacubex.one/example/mrs) |
 
 [🔙 返回顶部](#-mihomo_yamls)
+
+<!-- AUTO_GENERATED_START -->
+<!-- 这里会自动插入配置列表 -->
+<!-- AUTO_GENERATED_END -->
