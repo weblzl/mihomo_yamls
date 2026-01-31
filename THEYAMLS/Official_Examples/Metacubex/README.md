@@ -1,6 +1,6 @@
-# 📂 Mihomo 官方示例 (Official)
+# 📂 Metacubex (Mihomo)
 
-[🔙 返回主页](../../README.md)
+[🔙 返回上一级](../README.md)
 
 > 🤖 自动技术分析 | 2 个配置文件
 
@@ -18,10 +18,8 @@
 
 ## 📄 配置详情
 
-### 👤 Metacubex
-
 #### 📝 geox_config.yaml
-- **路径**: `Metacubex/geox_config.yaml` | **大小**: 5.2 KB | [查看源码](https://github.com/HenryChiao/mihomo_yamls/blob/main/THEYAMLS/Official_Examples/Metacubex/geox_config.yaml)
+- **路径**: `geox_config.yaml` | **大小**: 5.2 KB | [查看源码](https://github.com/HenryChiao/mihomo_yamls/blob/main/THEYAMLS/Official_Examples/Metacubex/geox_config.yaml)
 - **模式**: rule | **TUN**: ✅ | **IPv6**: ✅
 <details>
 <summary>🔍 策略组 (20个)</summary>
@@ -51,7 +49,7 @@
 </details>
 
 #### 📝 rule-set_config.yaml
-- **路径**: `Metacubex/rule-set_config.yaml` | **大小**: 7.7 KB | [查看源码](https://github.com/HenryChiao/mihomo_yamls/blob/main/THEYAMLS/Official_Examples/Metacubex/rule-set_config.yaml)
+- **路径**: `rule-set_config.yaml` | **大小**: 7.7 KB | [查看源码](https://github.com/HenryChiao/mihomo_yamls/blob/main/THEYAMLS/Official_Examples/Metacubex/rule-set_config.yaml)
 - **模式**: rule | **TUN**: ✅ | **IPv6**: ✅
 <details>
 <summary>🔍 策略组 (20个)</summary>
@@ -79,5 +77,3 @@
 | 👆 全部节点 | `select` |
 | ♻️ 自动选择 | `url-test` |
 </details>
-
----
