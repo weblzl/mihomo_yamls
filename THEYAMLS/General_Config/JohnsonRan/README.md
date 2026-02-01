@@ -19,7 +19,7 @@
 ## 📄 配置详情
 
 #### 📝 AIB.yaml
-- **路径**: `AIB.yaml` | **大小**: 11.0 KB | [查看源码](https://github.com/HenryChiao/mihomo_yamls/blob/main/THEYAMLS/General_Config/JohnsonRan/AIB.yaml)
+- **路径**: `AIB.yaml` | **大小**: 11.0 KB | [查看源码](https://github.com/MARSCHIAO/THE_HNERYCHIAO_MIHOMO_YAMLS/blob/main/THEYAMLS/General_Config/JohnsonRan/AIB.yaml)
 - **模式**: rule | **TUN**: ✅ | **IPv6**: ✅
 <details>
 <summary>🔍 策略组 (24个)</summary>
@@ -50,7 +50,7 @@
 </details>
 
 #### 📝 AIO.yaml
-- **路径**: `AIO.yaml` | **大小**: 11.1 KB | [查看源码](https://github.com/HenryChiao/mihomo_yamls/blob/main/THEYAMLS/General_Config/JohnsonRan/AIO.yaml)
+- **路径**: `AIO.yaml` | **大小**: 11.1 KB | [查看源码](https://github.com/MARSCHIAO/THE_HNERYCHIAO_MIHOMO_YAMLS/blob/main/THEYAMLS/General_Config/JohnsonRan/AIO.yaml)
 - **模式**: rule | **TUN**: ✅ | **IPv6**: ✅
 <details>
 <summary>🔍 策略组 (24个)</summary>

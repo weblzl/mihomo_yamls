@@ -7,7 +7,7 @@
 ## 📄 配置详情
 
 #### 📝 mihomo_smart.yaml
-- **路径**: `mihomo_smart.yaml` | **大小**: 18.2 KB | [查看源码](https://github.com/HenryChiao/mihomo_yamls/blob/main/THEYAMLS/Smart_Mode/echs-top/mihomo_smart.yaml)
+- **路径**: `mihomo_smart.yaml` | **大小**: 18.2 KB | [查看源码](https://github.com/MARSCHIAO/THE_HNERYCHIAO_MIHOMO_YAMLS/blob/main/THEYAMLS/Smart_Mode/echs-top/mihomo_smart.yaml)
 - **模式**: rule | **TUN**: ✅ | **IPv6**: ✅
 <details>
 <summary>🔍 策略组 (31个)</summary>

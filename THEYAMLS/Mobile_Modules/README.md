@@ -21,7 +21,7 @@
 ### 👤 AkashaProxy
 
 #### 📝 config.yaml
-- **路径**: `AkashaProxy/config.yaml` | **大小**: 8.2 KB | [查看源码](https://github.com/HenryChiao/mihomo_yamls/blob/main/THEYAMLS/Mobile_Modules/AkashaProxy/config.yaml)
+- **路径**: `AkashaProxy/config.yaml` | **大小**: 8.2 KB | [查看源码](https://github.com/MARSCHIAO/THE_HNERYCHIAO_MIHOMO_YAMLS/blob/main/THEYAMLS/Mobile_Modules/AkashaProxy/config.yaml)
 - **模式**: rule | **TUN**: ✅ | **IPv6**: ✅
 <details>
 <summary>🔍 策略组 (20个)</summary>
@@ -54,7 +54,7 @@
 ### 👤 BoxProxy
 
 #### 📝 config.yaml
-- **路径**: `BoxProxy/config.yaml` | **大小**: 4.2 KB | [查看源码](https://github.com/HenryChiao/mihomo_yamls/blob/main/THEYAMLS/Mobile_Modules/BoxProxy/config.yaml)
+- **路径**: `BoxProxy/config.yaml` | **大小**: 4.2 KB | [查看源码](https://github.com/MARSCHIAO/THE_HNERYCHIAO_MIHOMO_YAMLS/blob/main/THEYAMLS/Mobile_Modules/BoxProxy/config.yaml)
 - **模式**: Rule | **TUN**: ✅ | **IPv6**: ✅
 <details>
 <summary>🔍 策略组 (3个)</summary>
@@ -70,7 +70,7 @@
 ### 👤 ClashMix
 
 #### 📝 config.yaml
-- **路径**: `ClashMix/config.yaml` | **大小**: 6.5 KB | [查看源码](https://github.com/HenryChiao/mihomo_yamls/blob/main/THEYAMLS/Mobile_Modules/ClashMix/config.yaml)
+- **路径**: `ClashMix/config.yaml` | **大小**: 6.5 KB | [查看源码](https://github.com/MARSCHIAO/THE_HNERYCHIAO_MIHOMO_YAMLS/blob/main/THEYAMLS/Mobile_Modules/ClashMix/config.yaml)
 - **模式**: rule | **TUN**: ✅ | **IPv6**: ✅
 <details>
 <summary>🔍 策略组 (5个)</summary>
@@ -88,7 +88,7 @@
 ### 👤 Surfing
 
 #### 📝 config.yaml
-- **路径**: `Surfing/config.yaml` | **大小**: 19.0 KB | [查看源码](https://github.com/HenryChiao/mihomo_yamls/blob/main/THEYAMLS/Mobile_Modules/Surfing/config.yaml)
+- **路径**: `Surfing/config.yaml` | **大小**: 19.0 KB | [查看源码](https://github.com/MARSCHIAO/THE_HNERYCHIAO_MIHOMO_YAMLS/blob/main/THEYAMLS/Mobile_Modules/Surfing/config.yaml)
 - **模式**: Rule | **TUN**: 🚫 | **IPv6**: ✅
 <details>
 <summary>🔍 策略组 (34个)</summary>
