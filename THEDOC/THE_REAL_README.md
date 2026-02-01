@@ -1,339 +1,472 @@
-<div align="center">
+<p align="center">
+  <h1 align="center">📖 配置分类与使用指南</h1>
+  <h3 align="center">Configuration Categories & Usage Guide</h3>
+  <p align="center"><strong>如果你不知道该选哪个配置，这份 README 就是为你准备的。</strong></p>
+  <p align="center">
+    <a href="#-项目内容概览">项目介绍</a> · 
+    <a href="#-我该怎么选择">选择指南</a> · 
+    <a href="#-网络环境与安全检测">检测工具</a> · 
+    <a href="../README.md">🔙 返回主页</a>
+  </p>
+</p>
 
-# 📖 配置分类与使用指南  
-### Configuration Categories & Usage Guide
+<hr>
 
-**如果你不知道该选哪个配置，这份 README 就是为你准备的。**
+<!-- ==================== 第一板块：项目内容介绍 ==================== -->
+<h2 id="-项目内容概览">📦 项目内容概览</h2>
 
-[🔙 返回项目主页](../README.md)
-
-</div>
-
----
-
-## 🧭 我该选哪个配置？（先看这里）
-
-> **核心原则**：  
-> **新手不建议从"自己写配置"开始。成熟方案才是正确起点。**
-
-### 🔑 三句话快速结论
-
-- **不知道自己用什么内核** → ✅ [通用进阶配置](#2️⃣-通用进阶配置--general-config--推荐)  
-- **Smart 内核用户** → 🧠 [Smart Mode](#3️⃣-smart--路由专用--smart-mode)  
-- **不想折腾规则** → 🧩 [INI 订阅转换](#-ini-配置仓库-theini)
-- **OpenClash 用户** → ⚙️ [OpenClash 覆写](#-openclash-专用配置-theopenclash)
-
-### 🧭 快速决策表
-
-| 使用场景 / 条件 | 推荐选择 | 说明 |
-|----------------|----------|------|
-| 完全新手 / 第一次使用 Clash 系 | ✅ 通用进阶配置 | 分流、去广告、策略组已配置完成 |
-| 想学习配置结构 / 二次魔改 | 📖 官方与基础示例 | 仅用于参考，不建议直接使用 |
-| 使用 Smart / SmartDNS / 软路由 | 🧠 Smart Mode 分类 | Smart 内核必须使用对应配置 |
-| OpenClash 插件用户 | ⚙️ THEOPENCLASH | 一键导入的覆写配置文件 |
-| 路由器 / 旁路由常驻运行 | 🧠 Smart Mode 或 General Config | 是否选 Smart 取决于理解程度 |
-| 只想用订阅，不想研究规则 | 🧩 `.ini` 生成配置 (THEINI) | 交给订阅转换工具自动处理 |
-| 安卓 ROOT 模块用户 | 📱 Mobile Modules | 仅适用于模块环境 |
-| 想从零手写完整配置 | ❌ 不推荐 | 成本高、易踩坑、收益有限 |
-
----
-
-## 🗂️ 仓库目录结构速览
-
-```
-
-📦 本项目
-├── 📁 THEYAMLS/               # YAML 原始配置文件
-│   ├── 📁 Official_Examples/  # 官方示例
-│   ├── 📁 General_Config/     # 通用进阶配置 [推荐]
-│   ├── 📁 Smart_Mode/         # Smart 内核专用
+<h3>🗂️ 仓库目录结构</h3>
+<pre>
+📦 mihomo_yamls
+├── 📁 <strong>THEYAMLS/</strong>               # YAML 原始配置文件（主力配置）
+│   ├── 📁 Official_Examples/  # 官方纯净示例
+│   ├── 📁 General_Config/     # 通用进阶配置 [⭐ 推荐]
+│   ├── 📁 Smart_Mode/         # SmartDNS/软路由专用
 │   └── 📁 Mobile_Modules/     # Android ROOT 模块
 │
-├── 📁 Overwrite/
-│   ├── 📁 THEINI/             # INI 订阅转换配置
+├── 📁 <strong>Overwrite/</strong>
+│   ├── 📁 <strong>THEINI/</strong>          # INI 订阅转换规则文件
 │   │   ├── 📁 ACL4Category/   # ACL4SSR 规则系
-│   │   ├── 📁 Airport/        # 机场定制
-│   │   ├── 📁 Ordinary/       # 通用配置
-│   │   └── 📄 README.md       # INI 总览
+│   │   ├── 📁 Airport/        # 机场定制方案
+│   │   └── 📁 Ordinary/       # 通用/其他方案
 │   │
-│   └── 📁 THEOPENCLASH/       # OpenClash 覆写配置
+│   └── 📁 <strong>THEOPENCLASH/</strong>   # OpenClash 覆写配置
 │       ├── 📁 General_Config/
 │       ├── 📁 Smart_Mode/
-│       └── 📄 README.md       # OpenClash 总览
+│       └── 📁 Mobile_Modules/
 │
-└── 📁 THEDOC/                 # 文档目录
-├── 📄 THE_REAL_README.md  # 本文件
-├── 📄 CLIENTS.md          # 客户端下载
-├── 📄 CREDITS.md          # 致谢名单
-└── 📄 RULESET_README.md   # 规则集说明
-```
+└── 📁 <strong>THEDOC/</strong>            # 文档中心
+    ├── 📄 THE_REAL_README.md  # 本文件
+    ├── 📄 CLIENTS.md          # 客户端下载
+    ├── 📄 CREDITS.md          # 致谢名单
+    └── 📄 RULESET_README.md   # 规则集说明
+</pre>
 
----
-
-## 🧠 重要认知说明（建议阅读）
-
-### 1️⃣ 新手不推荐自己写配置
-
-- Clash / Meta / Mihomo 配置学习成本高  
-- 常见问题包括：
-  - 分流不完整  
-  - 策略组设计不合理  
-  - DNS / IPv6 / Fake-IP 配置错误  
-  - 出现问题难以定位  
-- **成熟配置 ≠ 低级配置**
-
-👉 正确路径：  
-**先使用 → 再理解 → 再修改 → 最后才是自己写**
-
-### 2️⃣ 根据「内核类型」选择配置
-
-| 使用内核 | 推荐配置路径 |
-|--------|----------|
-| 原版 / Meta / Mihomo（非 Smart） | `THEYAMLS/General_Config/` |
-| Smart 内核 | `THEYAMLS/Smart_Mode/` **(仅限)** |
-| 不确定内核类型 | `THEYAMLS/General_Config/` |
-
-### 3️⃣ Smart 内核不建议混用规则
-
-- Smart 是 **自动决策系统**，不是普通规则集合  
-- ❌ 不建议：
-  - 与普通规则混写  
-  - 强行加入大量自定义规则  
-- ✅ 推荐：
-  - 使用 `THEYAMLS/Smart_Mode/` 内的成套方案  
-  - 给足时间收集样本
-
-### 4️⃣ OpenClash 用户的捷径
-
-如果你使用 OpenClash 插件，无需手动下载 YAML：
-- 直接前往 `Overwrite/THEOPENCLASH/`
-- 选择对应分类的 `.conf` 文件
-- 复制 Raw 链接填入 OpenClash 订阅
-- 设置环境变量 `EN_KEY1` 为你的机场订阅链接即可
-
-### 5️⃣ 不想折腾？`.ini` 是最省心方案
-
-如果你：
-- 只维护一个订阅链接  
-- 不关心规则细节  
-- 希望配置随上游自动更新  
-
-👉 **直接使用 `Overwrite/THEINI/` 中的配置**
-
-流程示例：  
-机场订阅 ↓ 订阅转换（选择 THEINI 中的 .ini 文件） ↓ 生成配置 ↓ 导入客户端
-
----
-
-## 🔍 如何判断自己当前使用的内核？
-
-### 方法一：客户端查看（推荐）
-
-**OpenClash：**
-
-运行状态 → 内核信息
-
-| 显示内容 | 实际内核 | 对应配置路径 |
-|--------|----------|-------------|
-| clash | 原版 | `THEYAMLS/General_Config/` |
-| clash_meta / meta | Meta | `THEYAMLS/General_Config/` |
-| mihomo | Mihomo | `THEYAMLS/General_Config/` |
-| mihomo-smart / smart | **Smart 内核** | `THEYAMLS/Smart_Mode/` **(必须)** |
-
-**桌面 / 手机客户端：**
-
-- 设置 → About / 关于  
-- 日志第一行  
-
-关键词判断：
-
-| 关键词 | 内核 | 配置路径 |
-|------|------|---------|
-| Meta | Clash Meta | `THEYAMLS/General_Config/` |
-| Mihomo | Mihomo | `THEYAMLS/General_Config/` |
-| Smart | **Smart** | `THEYAMLS/Smart_Mode/` |
-
-> ❗ **不确定 ≠ Smart**  
-> 默认结论：使用 `THEYAMLS/General_Config/`
-
----
-
-## 📂 YAML 配置分类详解（THEYAMLS）
-
-### 1️⃣ 官方与基础示例 · Official Examples
-> **📂 路径**：[`../THEYAMLS/Official_Examples`](../THEYAMLS/Official_Examples)
-
-- 🎓 **适合人群**：开发者、从零学习者、偏好自行定制的用户  
-- ✨ **配置特点**：  
-  - 完整收录 Wiki 标准 `rule-set`  
-  - 原生 `geox` 模板示例  
-- 🌱 **定位说明**：  
-  最纯净、最权威的参考样本，不包含任何额外魔改规则  
-  👉 **用于学习与参考，不建议直接长期使用**
-
-### 2️⃣ 通用进阶配置 · General Config  🔥 **推荐**
-> **📂 路径**：[`../THEYAMLS/General_Config`](../THEYAMLS/General_Config)
-
-- 💻 **适合人群**：Windows / macOS / Android / iOS 日常用户  
-- 🚀 **配置特点**：  
-  - 集成 HenryChiao、666OS、JohnsonRan 等成熟方案  
-  - 默认开启分流、去广告、自动策略与故障转移  
-- 🔥 **推荐理由**：  
-  **主力使用首选**，性能、稳定性与易用性之间的最佳平衡  
-  👉 **完全新手也可直接使用**
-
-### 3️⃣ Smart / 路由专用 · Smart Mode
-> **📂 路径**：[`../THEYAMLS/Smart_Mode`](../THEYAMLS/Smart_Mode)
-
-- 🏠 **适合人群**：  
-  OpenClash / 软路由 / SmartDNS / 常驻旁路由用户
-- 🛠️ **配置特点**：  
-  - 深度 DNS 优化  
-  - 底层流量接管  
-  - 类 Surge 的自动策略体系
-- 🧠 **核心机制说明**：  
-  > 基于 Vernesong（V 佬）提出的 Smart 策略  
-  > 针对每个顶级域名或 IP，动态计算并选择 **权重最高的节点**  
-  >
-  > ⚠️ **注意事项**：  
-  > - 初期因样本不足可能出现 IP 波动  
-  > - 样本积累完成后将趋于稳定  
-  > - 无法规避服务端 403 / 风控类问题  
-  >
-  > 👉 **Smart 内核请仅使用 Smart Mode 分类配置**
-
-### 4️⃣ 安卓模块 · Mobile Modules
-> **📂 路径**：[`../THEYAMLS/Mobile_Modules`](../THEYAMLS/Mobile_Modules)
-
-- 📱 **适合人群**：Magisk / KernelSU / APatch 用户  
-- 🧩 **配置来源**：  
-  提取自 Surfing、Box 等透明代理模块内置规则
-- 🔌 **使用建议**：  
-  - 仅推荐配合 ROOT 模块使用  
-  - ❌ 不建议直接导入 Clash / Meta / GUI 客户端
-
----
-
-## 🧩 INI 配置仓库（THEINI）
-
-> [!NOTE]
-> **自动同步说明**  
-> 以下配置由 GitHub Actions **每日北京时间 08:00**  
-> 自动从上游拉取并按类别归档至 `Overwrite/THEINI/`
+<h3>📂 THEYAMLS · YAML 原始配置</h3>
+<p>适用于直接导入 Clash/Mihomo 客户端使用，每日自动同步上游更新。</p>
 
 <table width="100%">
-<tr>
-<td width="33%" align="center">
-
-### 🦄 ACL4SSR 分类  
-基于 ACL4SSR 及其衍生版本  
-适合规则洁癖与精细化分流用户
-
-<a href="../Overwrite/THEINI/ACL4Category">
-<img src="https://img.shields.io/badge/浏览-ACL_Rules-7057ff?style=for-the-badge&logo=github">
-</a>
-
-</td>
-<td width="33%" align="center">
-
-### 🛫 机场定制分类  
-机场 / 订阅转换专属规则  
-包含 jklolixxs 等定制方案
-
-<a href="../Overwrite/THEINI/Airport">
-<img src="https://img.shields.io/badge/浏览-Airport_Rules-0366d6?style=for-the-badge&logo=github">
-</a>
-
-</td>
-<td width="33%" align="center">
-
-### 🧩 通用 / 其他分类  
-ShellCrash、DustinWin 等方案  
-适配大多数使用场景
-
-<a href="../Overwrite/THEINI/Ordinary">
-<img src="https://img.shields.io/badge/浏览-General_Rules-2ea44f?style=for-the-badge&logo=github">
-</a>
-
-</td>
-</tr>
+  <thead>
+    <tr>
+      <th width="20%">分类</th>
+      <th width="15%">适用内核</th>
+      <th width="45%">特点说明</th>
+      <th width="20%">进入目录</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>General_Config</strong><br>通用进阶配置</td>
+      <td>标准内核<br>Meta/Mihomo</td>
+      <td>集成 HenryChiao、666OS、JohnsonRan 等成熟方案，默认开启分流、去广告、故障转移。<br><strong>⭐ 新手首选，开箱即用</strong></td>
+      <td align="center"><a href="../THEYAMLS/General_Config">进入目录 →</a></td>
+    </tr>
+    <tr>
+      <td><strong>Smart_Mode</strong><br>智能路由模式</td>
+      <td><strong>Smart 内核</strong><br>（必须）</td>
+      <td>基于 SmartDNS 自动决策系统，动态计算最优节点。适合软路由/旁路由 7×24 小时常驻。<br>⚠️ 初期需收集样本，后期极稳</td>
+      <td align="center"><a href="../THEYAMLS/Smart_Mode">进入目录 →</a></td>
+    </tr>
+    <tr>
+      <td><strong>Mobile_Modules</strong><br>安卓模块</td>
+      <td>标准内核</td>
+      <td>提取自 Surfing、Box 等透明代理模块内置规则。仅适用于 Magisk/KernelSU/APatch ROOT 环境</td>
+      <td align="center"><a href="../THEYAMLS/Mobile_Modules">进入目录 →</a></td>
+    </tr>
+    <tr>
+      <td><strong>Official_Examples</strong><br>官方示例</td>
+      <td>标准内核</td>
+      <td>Mihomo 官方 Wiki 标准模板，纯净无魔改。适合学习配置语法或二次开发</td>
+      <td align="center"><a href="../THEYAMLS/Official_Examples">进入目录 →</a></td>
+    </tr>
+  </tbody>
 </table>
 
-<div align="center">
+<h3>🧩 Overwrite · 外部调用配置</h3>
+<p>适用于订阅转换工具或 OpenClash 插件，无需手动下载 YAML 文件。</p>
 
-**👇 或直接浏览完整 INI 文件树 👇**
+<details>
+  <summary><strong>📋 THEINI · 订阅转换配置（点击展开）</strong></summary>
+  <br>
+  <p>适用于基于 <a href="https://github.com/tindy2013/subconverter">SubConverter</a> 的订阅转换服务（如 ACL4SSR、Sub-Web 等）。通过引用 <code>.ini</code> 文件，将机场原始订阅自动转换为完整配置。</p>
+  
+  <table width="100%">
+    <tr>
+      <td width="33%" align="center">
+        <strong>🦄 ACL4Category</strong><br>
+        ACL4SSR 规则体系<br><br>
+        <a href="../Overwrite/THEINI/ACL4Category">
+          <img src="https://img.shields.io/badge/浏览-详情-7057ff?style=flat&logo=github">
+        </a>
+      </td>
+      <td width="33%" align="center">
+        <strong>✈️ Airport</strong><br>
+        机场定制方案<br><br>
+        <a href="../Overwrite/THEINI/Airport">
+          <img src="https://img.shields.io/badge/浏览-详情-0366d6?style=flat&logo=github">
+        </a>
+      </td>
+      <td width="33%" align="center">
+        <strong>🧩 Ordinary</strong><br>
+        通用社区方案<br><br>
+        <a href="../Overwrite/THEINI/Ordinary">
+          <img src="https://img.shields.io/badge/浏览-详情-2ea44f?style=flat&logo=github">
+        </a>
+      </td>
+    </tr>
+  </table>
+  
+  <p><strong>使用方式</strong>：在订阅转换网站的「远程配置」栏填入对应 <code>.ini</code> 文件的 Raw 链接即可。</p>
+</details>
 
-<a href="../Overwrite/THEINI">
-<img src="https://img.shields.io/badge/📂_进入_THEINI_根目录-Browse_All_Files-black?style=flat&logo=github&labelColor=gray">
-</a>
+<br>
 
-</div>
+<details>
+  <summary><strong>⚙️ THEOPENCLASH · 覆写模块（点击展开）</strong></summary>
+  <br>
+  <p>专为 OpenClash 插件设计的覆写配置文件（<code>.conf</code>），支持自动注入多订阅源。</p>
+  
+  <p><strong>工作原理</strong>：</p>
+  <ol>
+    <li>在 OpenClash 中添加 <code>.conf</code> 文件的 Raw 链接作为订阅</li>
+    <li>设置环境变量 <code>EN_KEY1=你的订阅链接</code>（支持多订阅 EN_KEY1;EN_KEY2;EN_KEY3）</li>
+    <li>OpenClash 自动下载 YAML 并注入订阅链接，无需手动维护</li>
+  </ol>
+  
+  <p>包含分类：<code>General_Config</code> / <code>Smart_Mode</code> / <code>Mobile_Modules</code></p>
+  <p align="center">
+    <a href="../Overwrite/THEOPENCLASH">
+      <img src="https://img.shields.io/badge/📂_浏览_THEOPENCLASH-查看所有配置-orange?style=for-the-badge&logo=ovh">
+    </a>
+  </p>
+</details>
 
----
+<hr>
 
-## ⚙️ OpenClash 专用配置（THEOPENCLASH）
+<!-- ==================== 第二板块：我该怎么选择 ==================== -->
+<h2 id="-我该怎么选择">🧭 我该怎么选择？</h2>
 
-> **专为 OpenClash 插件用户生成的覆写配置文件**
+<h3>🔑 三句话快速结论</h3>
+<ul>
+  <li><strong>不知道自己用什么内核</strong> → 选 <a href="../THEYAMLS/General_Config"><strong>General_Config</strong></a>（通用进阶配置）</li>
+  <li><strong>使用 Smart/SmartDNS/软路由</strong> → 必须选 <a href="../THEYAMLS/Smart_Mode"><strong>Smart_Mode</strong></a></li>
+  <li><strong>OpenClash 插件用户</strong> → 用 <a href="../Overwrite/THEOPENCLASH"><strong>THEOPENCLASH</strong></a> 覆写配置</li>
+  <li><strong>不想折腾规则，直接订阅转换</strong> → 选 <a href="../Overwrite/THEINI"><strong>THEINI</strong></a> 中的 .ini 文件</li>
+</ul>
 
-如果你使用 OpenClash，这是最省心的方式：
+<h3>🎯 快速决策表</h3>
+<table width="100%">
+  <thead>
+    <tr>
+      <th width="30%">使用场景 / 条件</th>
+      <th width="25%">推荐选择</th>
+      <th width="45%">说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>完全新手 / 第一次使用 Clash 系</td>
+      <td>✅ <strong>General_Config</strong></td>
+      <td>分流、去广告、策略组已预配置完成</td>
+    </tr>
+    <tr>
+      <td>想学习配置结构 / 二次魔改</td>
+      <td>📖 <strong>Official_Examples</strong></td>
+      <td>仅用于参考学习，不建议直接长期使用</td>
+    </tr>
+    <tr>
+      <td>使用 Smart / SmartDNS / 软路由</td>
+      <td>🧠 <strong>Smart_Mode</strong></td>
+      <td>Smart 内核必须使用对应配置，自动决策权重</td>
+    </tr>
+    <tr>
+      <td>OpenClash 插件用户</td>
+      <td>⚙️ <strong>THEOPENCLASH</strong></td>
+      <td>一键导入覆写，自动注入订阅链接</td>
+    </tr>
+    <tr>
+      <td>路由器 / 旁路由常驻运行</td>
+      <td>🧠 Smart_Mode 或 General</td>
+      <td>是否选 Smart 取决于对自动决策的理解程度</td>
+    </tr>
+    <tr>
+      <td>只想用订阅，不想研究规则</td>
+      <td>🧩 <strong>THEINI</strong> (.ini)</td>
+      <td>交给订阅转换工具自动处理，省时省心</td>
+    </tr>
+    <tr>
+      <td>安卓 ROOT 模块用户</td>
+      <td>📱 <strong>Mobile_Modules</strong></td>
+      <td>仅适用于 Magisk/KernelSU/APatch 环境</td>
+    </tr>
+    <tr>
+      <td>想从零手写完整配置</td>
+      <td>❌ <strong>不推荐</strong></td>
+      <td>成本高、易踩坑、收益有限</td>
+    </tr>
+  </tbody>
+</table>
 
-| 步骤 | 操作 |
-|-----|------|
-| 1 | 进入 `Overwrite/THEOPENCLASH/` 选择对应分类 |
-| 2 | 点击 `.conf` 文件，复制 **Raw** 链接 |
-| 3 | 在 OpenClash → 配置订阅 → 添加订阅 URL |
-| 4 | 设置环境变量 `EN_KEY1` 为你的机场订阅链接 |
-| 5 | 保存并更新，OpenClash 将自动下载对应 YAML |
+<h3>🔍 如何判断自己使用的内核？</h3>
+<p><strong>OpenClash 用户查看路径</strong>：运行状态 → 内核信息</p>
 
-**目录结构**：
-- `THEOPENCLASH/General_Config/` - 通用配置覆写
-- `THEOPENCLASH/Smart_Mode/` - Smart 内核覆写
-- `THEOPENCLASH/Mobile_Modules/` - 移动端覆写
+<table width="100%">
+  <thead>
+    <tr>
+      <th width="35%">显示内容</th>
+      <th width="25%">实际内核</th>
+      <th width="40%">对应配置路径</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>clash / clash_meta / meta / mihomo</td>
+      <td>标准内核</td>
+      <td><code>THEYAMLS/General_Config/</code></td>
+    </tr>
+    <tr>
+      <td>mihomo-smart / smart</td>
+      <td><strong>Smart 内核</strong></td>
+      <td><code>THEYAMLS/Smart_Mode/</code> <strong>（必须）</strong></td>
+    </tr>
+  </tbody>
+</table>
 
-<a href="../Overwrite/THEOPENCLASH">
-<img src="https://img.shields.io/badge/📂_浏览_THEOPENCLASH-OpenClash_Configs-orange?style=for-the-badge&logo=ovh">
-</a>
+<blockquote>
+  <p>⚠️ <strong>重要提示</strong>：<br>
+  1. 不确定内核类型时，默认选择 <strong>General_Config</strong><br>
+  2. Smart 是<strong>自动决策系统</strong>，不是普通规则集合，不建议与普通规则混写<br>
+  3. 正确路径：<strong>先使用 → 再理解 → 再修改 → 最后才是自己写</strong></p>
+</blockquote>
 
----
+<hr>
 
-## 📖 使用方法 · How to Use
+<!-- ==================== 第三板块：网络检测工具 ==================== -->
+<h2 id="-网络环境与安全检测">🌐 网络环境与安全检测工具</h2>
+<p>以下工具可用于检测 IP 纯净度、风控值、流媒体解锁、DNS 泄漏等，帮助您评估当前节点的质量与隐私安全。</p>
 
-### 方式一：直接使用 YAML（通用）
-1. 根据上方 [决策表](#-快速决策表) 确定所需分类
-2. 点击分类标题进入 `THEYAMLS/` 对应目录
-3. 选择作者子目录下的 `.yaml` 文件
-4. 点击右上角 `Raw` 获取直链，或复制内容导入客户端
+<h3>🕵️ IP 归属与 VPN 检测</h3>
+<table width="100%">
+  <thead>
+    <tr>
+      <th width="25%">工具名称</th>
+      <th width="55%">主要功能</th>
+      <th width="20%">访问链接</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Spur.us</strong></td>
+      <td>测 IP 归属 VPN / IP 在线设备估计 / 相似 IP / 出口地区 / 查询 TAG 和使用同 ASN 的其它代理服务</td>
+      <td><a href="https://spur.us/context/me">访问</a></td>
+    </tr>
+    <tr>
+      <td><strong>IPLeak</strong></td>
+      <td> simultaneously 检测 IPv4 和 IPv6 地址，检查 WebRTC 泄漏</td>
+      <td><a href="https://ipleak.net">访问</a></td>
+    </tr>
+    <tr>
+      <td><strong>Hurricane Electric BGP</strong></td>
+      <td>专业 BGP 路由查询，查看 IP 归属 ASN 和路由传播</td>
+      <td><a href="https://bgp.he.net">访问</a></td>
+    </tr>
+  </tbody>
+</table>
 
-### 方式二：订阅转换（THEINI）
-1. 准备好你的机场订阅链接
-2. 前往 `Overwrite/THEINI/` 选择适合的 `.ini` 文件
-3. 在订阅转换网站（如 subconverter）中：
-   - 远程配置：填入 `.ini` 文件的 Raw 链接
-   - 订阅链接：填入你的机场订阅
-4. 生成并导入最终配置
+<h3>🛡️ 风控值与 IP 类型检测</h3>
+<p>用于判断 IP 是否被标记为数据中心/代理/VPN，以及欺诈风险评分（风控值越低越好）。</p>
 
-### 方式三：OpenClash 覆写（THEOPENCLASH）
-1. 进入 `Overwrite/THEOPENCLASH/` 选择分类
-2. 复制 `.conf` 文件的 Raw 链接
-3. 在 OpenClash 中添加配置文件订阅，URL 填入上面的链接
-4. 在覆写设置中添加环境变量 `EN_KEY1=你的订阅链接`
-5. 更新配置即可自动拉取对应 YAML
+<table width="100%">
+  <thead>
+    <tr>
+      <th width="25%">检测站点</th>
+      <th width="50%">特点说明</th>
+      <th width="25%">标识说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://ip.ping0.cc/ip"><strong>Ping0</strong></a></td>
+      <td>IP 类型判断较严格，适合检测家宽属性</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="https://ipinfo.io"><strong>IPInfo</strong></a></td>
+      <td>显示单/双 "isp" 标识，有 "isp" 即为家宽</td>
+      <td>Type: "isp"</td>
+    </tr>
+    <tr>
+      <td><a href="https://scamalytics.com/ip"><strong>Scamalytics</strong></a></td>
+      <td>风控值判断较为宽松，适合快速筛查</td>
+      <td>Fraud Score 越低越好</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.criminalip.io"><strong>Criminal IP</strong></a></td>
+      <td>风控值判断较为严格，企业级威胁情报</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="https://ipjiance.com"><strong>IP 检测</strong></a></td>
+      <td>风控值判断更为严格（国内视角）</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.ip2location.com"><strong>IP2Location</strong></a></td>
+      <td>专业流量检测，提供详细的代理/VPN/Tor 识别</td>
+      <td>-</td>
+    </tr>
+  </tbody>
+</table>
 
----
+<h3>🔍 浏览器指纹与匿名检测</h3>
+<table width="100%">
+  <tr>
+    <td width="33%" align="center">
+      <strong>Browserleaks</strong><br>
+      综合浏览器泄漏检测<br>
+      <a href="https://browserleaks.com">访问 →</a>
+    </td>
+    <td width="33%" align="center">
+      <strong>Whoer</strong><br>
+      匿名环境评分、浏览器指纹级检测<br>
+      <a href="https://whoer.net">访问 →</a>
+    </td>
+    <td width="33%" align="center">
+      <strong>Fake Vision</strong><br>
+      专业综合检测环境<br>
+      <a href="http://f.vision">访问 →</a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <strong>IP Score</strong><br>
+      检测 IP 黑名单状态<br>
+      <a href="http://www.ip-score.com">访问 →</a>
+    </td>
+    <td align="center">
+      <strong>Do I Leak</strong><br>
+      匿名环境全面检测<br>
+      <a href="https://www.doileak.com">访问 →</a>
+    </td>
+    <td align="center">
+      <strong>Pixelscan</strong><br>
+      环境检测与指纹分析<br>
+      <a href="https://pixelscan.net">访问 →</a>
+    </td>
+  </tr>
+</table>
 
-## 🛡️ 广告拦截效果测试 · AdBlock Test
+<h3>🎬 流媒体与功能检测</h3>
+<table width="100%">
+  <thead>
+    <tr>
+      <th width="25%">检测项目</th>
+      <th width="55%">工具说明</th>
+      <th width="20%">链接</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>流媒体解锁</td>
+      <td>RegionRestrictionCheck - 支持 Netflix、Disney+、YouTube Premium 等多平台区域检测</td>
+      <td><a href="https://github.com/lmc999/RegionRestrictionCheck">GitHub</a></td>
+    </tr>
+    <tr>
+      <td>应用程序限速检测</td>
+      <td>Wehe - 检测节点是否对特定应用（如 YouTube、Netflix）进行限速或丢包</td>
+      <td><a href="https://wehe.meddle.mobi">访问</a></td>
+    </tr>
+    <tr>
+      <td>审计测试</td>
+      <td>OONI Probe - 检测网络审查与封锁（建议关闭自动上传测试结果）</td>
+      <td><a href="https://ooni.org">访问</a></td>
+    </tr>
+    <tr>
+      <td>BT 下载历史</td>
+      <td>I Know What You Download - 查看该 IP 在 BT 网络被用来下载什么（判断 IP 是否被滥用）</td>
+      <td><a href="https://iknowwhatyoudownload.com">访问</a></td>
+    </tr>
+  </tbody>
+</table>
 
-使用包含去广告规则的配置后，可通过以下站点验证效果：
+<h3>🚀 线路质量与测速</h3>
+<table width="100%">
+  <tr>
+    <td width="50%" valign="top">
+      <h4>国内测速</h4>
+      <ul>
+        <li><a href="https://www.speedtest.cn">测速网 (SpeedTest.cn)</a></li>
+        <li><a href="https://10000.gd.cn">广东电信测速</a></li>
+        <li><a href="https://test.ustc.edu.cn">中科大测速 (IPv4)</a> / <a href="http://test6.ustc.edu.cn">IPv6</a></li>
+        <li><a href="https://test.nju.edu.cn">南京大学测速</a></li>
+        <li><a href="http://speed.neu.edu.cn">东北大学测速</a></li>
+        <li><strong>软件推荐</strong>：泰尔测速、花瓣测速、360 宽带测速器</li>
+      </ul>
+    </td>
+    <td width="50%" valign="top">
+      <h4>国际测速</h4>
+      <ul>
+        <li><a href="https://www.speedtest.net">Speedtest.net</a></li>
+        <li><a href="https://fast.com">Fast.com (Netflix)</a></li>
+        <li><a href="http://speed5.ntu.edu.tw">台大测速站</a></li>
+        <li><a href="https://www.itdog.cn">ITDog (含 ping 测)</a></li>
+      </ul>
+    </td>
+  </tr>
+</table>
 
-- [AdBlock Tester](https://adblock-tester.com) —— 综合测试  
-- [Block Ads!](https://blockads.fivefilters.org/) —— 五层过滤  
-- [Ad Blocker Test](https://adblock.turtlecute.org/) —— 轻量测试
+<h3>🌏 国内外 IP 查询对照</h3>
+<details>
+  <summary><strong>点击展开 IP 查询站点列表（国内外去重汇总）</strong></summary>
+  <br>
+  <table width="100%">
+    <tr>
+      <td><a href="https://ip.skk.moe">IP.SKK.moe</a>（Sukka 网络诊断）</td>
+      <td><a href="https://ipcheck.ing">IPCheck.ing</a>（综合检测）</td>
+      <td><a href="http://ip111.cn">IP111.cn</a>（国内视角）</td>
+    </tr>
+    <tr>
+      <td><a href="https://ip125.com">IP125.com</a></td>
+      <td><a href="https://ipcelou.com">IPCeLou.com</a></td>
+      <td><a href="https://ip233.cn">IP233.cn</a>（全方位查询）</td>
+    </tr>
+    <tr>
+      <td><a href="https://myip.cx">MyIP.cx</a></td>
+      <td><a href="https://checkip.pages.dev">CheckIP.pages.dev</a></td>
+      <td><a href="https://www.chaip.org">ChaIP.org</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://ip.ovo.lol">IP.OVO.lol</a></td>
+      <td><a href="https://html.zone/ip">HTML.Zone/IP</a></td>
+      <td><a href="https://ip.tsy.ink">IP.TSY.ink</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://iplark.com">IPLark.com</a></td>
+      <td><a href="https://ipw.cn">IPW.cn</a></td>
+      <td><a href="https://ipdata.co">IPData.co</a>（IP 类型检测）</td>
+    </tr>
+    <tr>
+      <td colspan="3" align="center">
+        <strong>综合推荐</strong>：<a href="https://github.com/jason5ng32/MyIP">MyIP (GitHub 开源)</a> 一站式检测 IP、DNS、WebRTC、流媒体解锁
+      </td>
+    </tr>
+  </table>
+</details>
 
----
+<h3>🔒 DNS 泄漏与 WebRTC 检测</h3>
+<p>确保您的真实 IP 未通过 DNS 或 WebRTC 泄漏：</p>
+<ul>
+  <li><a href="https://www.dnsleaktest.com">DNS Leak Test</a> - 经典 DNS 泄漏检测</li>
+  <li><a href="https://dnsleaktest.org">DNS Leak Test (Org)</a> - 扩展检测</li>
+  <li><a href="https://www.browserscan.net/zh/dns-leak">BrowserScan DNS 检测</a></li>
+  <li><a href="https://browserleaks.com/webrtc">WebRTC Leak Test</a> - 检测 WebRTC 是否泄漏真实 IP</li>
+</ul>
 
-<div align="center">
+<hr>
 
-**内容完整、逻辑闭环，适合长期维护型项目。**  
-**如有问题，欢迎 [提交 Issue](../issues) 或 [查看致谢名单](./CREDITS.md)！**
-
-</div>
+<!-- ==================== 底部 ==================== -->
+<p align="center">
+  <strong>🔙 <a href="../README.md">返回项目主页</a></strong> &nbsp;·&nbsp; 
+  <strong>💬 <a href="../issues">提交 Issue</a></strong> &nbsp;·&nbsp; 
+  <strong>📋 <a href="./CREDITS.md">致谢名单</a></strong>
+</p>
