@@ -8,20 +8,20 @@
 
 | 特性 | `OneSmart_Lite_Config.yaml` | `OneSmart_Config.yaml` | `clash-fallback-smart-std.yaml` | `clash-all-smart.yaml` | `clash-all-fallback-smart.yaml` | `MihomoSmartProMax.yaml` | `MihomoSmartProPlus.yaml` | `MihomoSmartAIO.yaml` | `THESmart.yaml` | `mihomo_smart.yaml` | `smart.yaml` |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **大小** | 12.5 KB | 20.1 KB | 17.7 KB | 15.1 KB | 18.2 KB | 25.1 KB | 25.7 KB | 32.1 KB | 24.8 KB | 18.2 KB | 13.0 KB |
+| **大小** | 12.5 KB | 20.1 KB | 17.7 KB | 15.1 KB | 18.2 KB | 25.1 KB | 25.7 KB | 32.1 KB | 24.9 KB | 14.8 KB | 13.0 KB |
 | **混合端口** | 7893 | 7893 | 7893 | 7893 | 7893 | 7893 | 7893 | 7893 | 7893 | 0 | 7890 |
-| **面板地址** | 127.0.0.1:9090 | 127.0.0.1:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 127.0.0.1:9090 | 127.0.0.1:9090 | 127.0.0.1:9090 | 0.0.0.0:9090 | 127.0.0.1:9090 | - |
+| **面板地址** | 127.0.0.1:9090 | 127.0.0.1:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 127.0.0.1:9090 | 127.0.0.1:9090 | 127.0.0.1:9090 | 0.0.0.0:9090 | - | - |
 | **运行模式** | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule |
 | **TUN** | 🚫 | 🚫 | ✅ | ✅ | ✅ | 🚫 | 🚫 | 🚫 | ✅ | ✅ | ✅ |
-| **策略组** | **16** | **31** | **36** | **38** | **57** | **41** | **41** | **69** | **40** | **31** | **28** |
-| **规则数** | **21** | **36** | **42** | **43** | **48** | **45** | **44** | **52** | **43** | **34** | **23** |
+| **策略组** | **16** | **31** | **36** | **38** | **57** | **41** | **41** | **69** | **40** | **19** | **28** |
+| **规则数** | **21** | **36** | **42** | **43** | **48** | **45** | **44** | **52** | **43** | **29** | **23** |
 
 ## 📄 配置详情
 
 ### 👤 666OS
 
 #### 📝 OneSmart_Lite_Config.yaml
-- **路径**: `666OS/OneSmart_Lite_Config.yaml` | **大小**: 12.5 KB | [查看源码](https://github.com/HenryChiao/MIHOMO_YAMLS/blob/main/THEYAMLS/Smart_Mode/666OS/OneSmart_Lite_Config.yaml)
+- **路径**: `666OS/OneSmart_Lite_Config.yaml` | **大小**: 12.5 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/Smart_Mode/666OS/OneSmart_Lite_Config.yaml)
 - **模式**: rule | **TUN**: 🚫 | **IPv6**: ✅
 <details>
 <summary>🔍 策略组 (16个)</summary>
@@ -47,7 +47,7 @@
 </details>
 
 #### 📝 OneSmart_Config.yaml
-- **路径**: `666OS/OneSmart_Config.yaml` | **大小**: 20.1 KB | [查看源码](https://github.com/HenryChiao/MIHOMO_YAMLS/blob/main/THEYAMLS/Smart_Mode/666OS/OneSmart_Config.yaml)
+- **路径**: `666OS/OneSmart_Config.yaml` | **大小**: 20.1 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/Smart_Mode/666OS/OneSmart_Config.yaml)
 - **模式**: rule | **TUN**: 🚫 | **IPv6**: ✅
 <details>
 <summary>🔍 策略组 (31个)</summary>
@@ -81,7 +81,7 @@
 ### 👤 HenryChiao
 
 #### 📝 MihomoSmartProMax.yaml
-- **路径**: `HenryChiao/MihomoSmartProMax.yaml` | **大小**: 25.1 KB | [查看源码](https://github.com/HenryChiao/MIHOMO_YAMLS/blob/main/THEYAMLS/Smart_Mode/HenryChiao/MihomoSmartProMax.yaml)
+- **路径**: `HenryChiao/MihomoSmartProMax.yaml` | **大小**: 25.1 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/Smart_Mode/HenryChiao/MihomoSmartProMax.yaml)
 - **模式**: rule | **TUN**: 🚫 | **IPv6**: ✅
 <details>
 <summary>🔍 策略组 (41个)</summary>
@@ -112,7 +112,7 @@
 </details>
 
 #### 📝 MihomoSmartProPlus.yaml
-- **路径**: `HenryChiao/MihomoSmartProPlus.yaml` | **大小**: 25.7 KB | [查看源码](https://github.com/HenryChiao/MIHOMO_YAMLS/blob/main/THEYAMLS/Smart_Mode/HenryChiao/MihomoSmartProPlus.yaml)
+- **路径**: `HenryChiao/MihomoSmartProPlus.yaml` | **大小**: 25.7 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/Smart_Mode/HenryChiao/MihomoSmartProPlus.yaml)
 - **模式**: rule | **TUN**: 🚫 | **IPv6**: ✅
 <details>
 <summary>🔍 策略组 (41个)</summary>
@@ -143,7 +143,7 @@
 </details>
 
 #### 📝 MihomoSmartAIO.yaml
-- **路径**: `HenryChiao/MihomoSmartAIO.yaml` | **大小**: 32.1 KB | [查看源码](https://github.com/HenryChiao/MIHOMO_YAMLS/blob/main/THEYAMLS/Smart_Mode/HenryChiao/MihomoSmartAIO.yaml)
+- **路径**: `HenryChiao/MihomoSmartAIO.yaml` | **大小**: 32.1 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/Smart_Mode/HenryChiao/MihomoSmartAIO.yaml)
 - **模式**: rule | **TUN**: 🚫 | **IPv6**: ✅
 <details>
 <summary>🔍 策略组 (69个)</summary>
@@ -174,7 +174,7 @@
 </details>
 
 #### 📝 THESmart.yaml
-- **路径**: `HenryChiao/THESmart.yaml` | **大小**: 24.8 KB | [查看源码](https://github.com/HenryChiao/MIHOMO_YAMLS/blob/main/THEYAMLS/Smart_Mode/HenryChiao/THESmart.yaml)
+- **路径**: `HenryChiao/THESmart.yaml` | **大小**: 24.9 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/Smart_Mode/HenryChiao/THESmart.yaml)
 - **模式**: rule | **TUN**: ✅ | **IPv6**: ✅
 <details>
 <summary>🔍 策略组 (40个)</summary>
@@ -208,41 +208,39 @@
 ### 👤 echs-top
 
 #### 📝 mihomo_smart.yaml
-- **路径**: `echs-top/mihomo_smart.yaml` | **大小**: 18.2 KB | [查看源码](https://github.com/HenryChiao/MIHOMO_YAMLS/blob/main/THEYAMLS/Smart_Mode/echs-top/mihomo_smart.yaml)
+- **路径**: `echs-top/mihomo_smart.yaml` | **大小**: 14.8 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/Smart_Mode/echs-top/mihomo_smart.yaml)
 - **模式**: rule | **TUN**: ✅ | **IPv6**: ✅
 <details>
-<summary>🔍 策略组 (31个)</summary>
+<summary>🔍 策略组 (19个)</summary>
 
 | 名称 | 类型 |
 | :--- | :--- |
 | 👆 PROXY | `select` |
 | 👆 PROXYDNS | `select` |
-| 👆 AD | `select` |
-| 👆 SPEEDTEST | `select` |
 | 👆 FCM | `select` |
-| 👆 BOTTEST | `select` |
+| 👆 BILIBILI | `select` |
 | 👆 TELEGRAM | `select` |
 | 👆 META | `select` |
 | 👆 TWITTER | `select` |
 | 👆 TIKTOK | `select` |
 | 👆 NETFLIX | `select` |
 | 👆 SPOTIFY | `select` |
-| 👆 BILIBILI | `select` |
-| 👆 YOUTUBE | `select` |
 | 👆 AI | `select` |
-| 👆 PIXIV | `select` |
-| 👆 GITHUB | `select` |
-| 👆 ONEDRIVE-DL | `select` |
-| 👆 STEAM-CN | `select` |
 | 👆 GOOGLE | `select` |
-| ... | 还有 11 个 |
+| 👆 国外&#124;SMART | `smart` |
+| 👆 香港&#124;SMART | `smart` |
+| 👆 台湾&#124;SMART | `smart` |
+| 👆 新加坡&#124;SMART | `smart` |
+| 👆 日本&#124;SMART | `smart` |
+| 👆 美国&#124;SMART | `smart` |
+| 👆 GLOBAL | `select` |
 </details>
 
 ---
 ### 👤 liandu2024
 
 #### 📝 clash-fallback-smart-std.yaml
-- **路径**: `liandu2024/clash-fallback-smart-std.yaml` | **大小**: 17.7 KB | [查看源码](https://github.com/HenryChiao/MIHOMO_YAMLS/blob/main/THEYAMLS/Smart_Mode/liandu2024/clash-fallback-smart-std.yaml)
+- **路径**: `liandu2024/clash-fallback-smart-std.yaml` | **大小**: 17.7 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/Smart_Mode/liandu2024/clash-fallback-smart-std.yaml)
 - **模式**: rule | **TUN**: ✅ | **IPv6**: 🚫
 <details>
 <summary>🔍 策略组 (36个)</summary>
@@ -273,7 +271,7 @@
 </details>
 
 #### 📝 clash-all-smart.yaml
-- **路径**: `liandu2024/clash-all-smart.yaml` | **大小**: 15.1 KB | [查看源码](https://github.com/HenryChiao/MIHOMO_YAMLS/blob/main/THEYAMLS/Smart_Mode/liandu2024/clash-all-smart.yaml)
+- **路径**: `liandu2024/clash-all-smart.yaml` | **大小**: 15.1 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/Smart_Mode/liandu2024/clash-all-smart.yaml)
 - **模式**: rule | **TUN**: ✅ | **IPv6**: ✅
 <details>
 <summary>🔍 策略组 (38个)</summary>
@@ -304,7 +302,7 @@
 </details>
 
 #### 📝 clash-all-fallback-smart.yaml
-- **路径**: `liandu2024/clash-all-fallback-smart.yaml` | **大小**: 18.2 KB | [查看源码](https://github.com/HenryChiao/MIHOMO_YAMLS/blob/main/THEYAMLS/Smart_Mode/liandu2024/clash-all-fallback-smart.yaml)
+- **路径**: `liandu2024/clash-all-fallback-smart.yaml` | **大小**: 18.2 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/Smart_Mode/liandu2024/clash-all-fallback-smart.yaml)
 - **模式**: rule | **TUN**: ✅ | **IPv6**: 🚫
 <details>
 <summary>🔍 策略组 (57个)</summary>
@@ -338,7 +336,7 @@
 ### 👤 qichiyuhub
 
 #### 📝 smart.yaml
-- **路径**: `qichiyuhub/smart.yaml` | **大小**: 13.0 KB | [查看源码](https://github.com/HenryChiao/MIHOMO_YAMLS/blob/main/THEYAMLS/Smart_Mode/qichiyuhub/smart.yaml)
+- **路径**: `qichiyuhub/smart.yaml` | **大小**: 13.0 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/Smart_Mode/qichiyuhub/smart.yaml)
 - **模式**: rule | **TUN**: ✅ | **IPv6**: 🚫
 <details>
 <summary>🔍 策略组 (28个)</summary>

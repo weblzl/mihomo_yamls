@@ -8,7 +8,7 @@
 
 | 特性 | `mihomo_single.yaml` | `mihomo_multi.yaml` |
 | :--- | :--- | :--- |
-| **大小** | 17.8 KB | 18.1 KB |
+| **大小** | 17.0 KB | 17.3 KB |
 | **混合端口** | 7897 | 7897 |
 | **面板地址** | - | - |
 | **运行模式** | rule | rule |
@@ -19,7 +19,7 @@
 ## 📄 配置详情
 
 #### 📝 mihomo_single.yaml
-- **路径**: `mihomo_single.yaml` | **大小**: 17.8 KB | [查看源码](https://github.com/HenryChiao/MIHOMO_YAMLS/blob/main/THEYAMLS/General_Config/yyhhyyyyyy/mihomo_single.yaml)
+- **路径**: `mihomo_single.yaml` | **大小**: 17.0 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/General_Config/yyhhyyyyyy/mihomo_single.yaml)
 - **模式**: rule | **TUN**: ✅ | **IPv6**: 🚫
 <details>
 <summary>🔍 策略组 (55个)</summary>
@@ -50,7 +50,7 @@
 </details>
 
 #### 📝 mihomo_multi.yaml
-- **路径**: `mihomo_multi.yaml` | **大小**: 18.1 KB | [查看源码](https://github.com/HenryChiao/MIHOMO_YAMLS/blob/main/THEYAMLS/General_Config/yyhhyyyyyy/mihomo_multi.yaml)
+- **路径**: `mihomo_multi.yaml` | **大小**: 17.3 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/General_Config/yyhhyyyyyy/mihomo_multi.yaml)
 - **模式**: rule | **TUN**: ✅ | **IPv6**: 🚫
 <details>
 <summary>🔍 策略组 (55个)</summary>
