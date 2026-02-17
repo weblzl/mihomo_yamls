@@ -8,13 +8,13 @@
 
 | 特性 | `mihomo.yaml` | `config.yaml` | `MihomoPro_Config.yaml` | `OneTouch_Config.yaml` | `config.yaml` | `configfull_NoAd.yaml` | `configfull_lite.yaml` | `configfull.yaml` | `clash-fallback-std.yaml` | `clash-fallback.yaml` | `clash-fallback-dialer.yaml` | `clash-fallback-all.yaml` | `clash-all-fallback.yaml` | `config.yaml` | `config.yaml` | `Clash.yaml` | `MihomoAIO.yaml` | `MihomoProPlus.yaml` | `MihomoProMax.yaml` | `ConfigForClash.yaml` | `config.yaml` | `AIO.yaml` | `AIB.yaml` | `mihomo_multi.yaml` | `mihomo_single.yaml` | `Clash_Sample.yaml` |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **大小** | 14.5 KB | 18.7 KB | 22.6 KB | 12.4 KB | 28.5 KB | 33.5 KB | 17.5 KB | 33.9 KB | 17.3 KB | 15.9 KB | 16.3 KB | 18.6 KB | 17.2 KB | 12.8 KB | 13.8 KB | 27.3 KB | 30.1 KB | 27.9 KB | 27.4 KB | 49.3 KB | 27.5 KB | 11.1 KB | 11.0 KB | 17.1 KB | 16.8 KB | 12.5 KB |
+| **大小** | 11.9 KB | 18.7 KB | 22.6 KB | 12.4 KB | 28.5 KB | 33.5 KB | 17.5 KB | 33.9 KB | 17.3 KB | 15.9 KB | 16.3 KB | 18.6 KB | 17.2 KB | 12.8 KB | 13.8 KB | 27.3 KB | 30.1 KB | 27.9 KB | 27.4 KB | 49.3 KB | 27.5 KB | 11.1 KB | 11.0 KB | 17.1 KB | 16.8 KB | 12.5 KB |
 | **混合端口** | 0 | 7892 | 7893 | 7893 | 7893 | 7890 | 7890 | 7890 | 7893 | 7893 | 7893 | 7893 | 7893 | 7890 | 7890 | 7890 | 7893 | 7893 | 7893 | 7892 | 7890 | 7890 | 7890 | 7897 | 7897 | 7892 |
 | **面板地址** | - | 127.0.0.1:9090 | 127.0.0.1:9090 | 127.0.0.1:9090 | 127.0.0.1:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | - | :9090 | :9090 | 127.0.0.1:9090 | 127.0.0.1:9090 | 127.0.0.1:9090 | 0.0.0.0:9090 | 127.0.0.1:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | - | - | 0.0.0.0:9090 |
 | **运行模式** | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | Rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule |
 | **TUN** | ✅ | 🚫 | 🚫 | 🚫 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 🚫 | 🚫 | 🚫 | 🚫 | 🚫 | 🚫 | 🚫 | ✅ | ✅ | ✅ | ✅ | ✅ |
-| **策略组** | **19** | **13** | **52** | **15** | **25** | **59** | **47** | **62** | **36** | **34** | **35** | **61** | **53** | **26** | **29** | **27** | **61** | **54** | **54** | **62** | **96** | **24** | **24** | **55** | **55** | **22** |
-| **规则数** | **29** | **37** | **40** | **23** | **35** | **95** | **38** | **96** | **43** | **43** | **43** | **53** | **42** | **23** | **33** | **68** | **52** | **44** | **45** | **62** | **30** | **34** | **34** | **22** | **22** | **25** |
+| **策略组** | **14** | **13** | **52** | **15** | **25** | **59** | **47** | **62** | **36** | **34** | **35** | **61** | **53** | **26** | **29** | **27** | **61** | **54** | **54** | **62** | **96** | **24** | **24** | **55** | **55** | **22** |
+| **规则数** | **20** | **37** | **40** | **23** | **35** | **95** | **38** | **96** | **43** | **43** | **43** | **53** | **42** | **23** | **33** | **68** | **52** | **44** | **45** | **62** | **30** | **34** | **34** | **22** | **22** | **25** |
 
 ## 📄 配置详情
 
@@ -431,32 +431,27 @@
 ### 👤 echs-top
 
 #### 📝 mihomo.yaml
-- **路径**: `echs-top/mihomo.yaml` | **大小**: 14.5 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/General_Config/echs-top/mihomo.yaml)
+- **路径**: `echs-top/mihomo.yaml` | **大小**: 11.9 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/General_Config/echs-top/mihomo.yaml)
 - **模式**: rule | **TUN**: ✅ | **IPv6**: ✅
 <details>
-<summary>🔍 策略组 (19个)</summary>
+<summary>🔍 策略组 (14个)</summary>
 
 | 名称 | 类型 |
 | :--- | :--- |
 | 👆 PROXY | `select` |
 | 👆 PROXYDNS | `select` |
 | 👆 FCM | `select` |
-| 👆 BILIBILI | `select` |
 | 👆 TELEGRAM | `select` |
-| 👆 META | `select` |
-| 👆 TWITTER | `select` |
-| 👆 TIKTOK | `select` |
-| 👆 NETFLIX | `select` |
-| 👆 SPOTIFY | `select` |
 | 👆 AI | `select` |
 | 👆 GOOGLE | `select` |
-| 🔧 常用&#124;FALLBACK | `fallback` |
+| ♻️ URLTEXT | `url-test` |
+| 🔧 FALLBACK | `fallback` |
+| 🔧 国外&#124;FALLBACK | `fallback` |
 | 🔧 香港&#124;FALLBACK | `fallback` |
 | 🔧 台湾&#124;FALLBACK | `fallback` |
 | 🔧 新加坡&#124;FALLBACK | `fallback` |
 | 🔧 日本&#124;FALLBACK | `fallback` |
 | 🔧 美国&#124;FALLBACK | `fallback` |
-| 👆 GLOBAL | `select` |
 </details>
 
 ---

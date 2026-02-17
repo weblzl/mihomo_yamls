@@ -8,13 +8,13 @@
 
 | 特性 | `mihomo_smart.yaml` | `OneSmart_Lite_Config.yaml` | `OneSmart_Config.yaml` | `clash-fallback-smart-std.yaml` | `clash-all-fallback-smart.yaml` | `clash-all-smart.yaml` | `OneSmartProMCX.yaml` | `smart.yaml` | `MihomoSmartAIO.yaml` | `MihomoSmartProMax.yaml` | `MihomoSmartProPlus.yaml` | `THESmart.yaml` |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **大小** | 15.0 KB | 12.5 KB | 20.1 KB | 17.7 KB | 18.2 KB | 15.1 KB | 41.3 KB | 13.0 KB | 32.1 KB | 25.1 KB | 25.7 KB | 24.9 KB |
+| **大小** | 13.2 KB | 12.5 KB | 20.1 KB | 17.7 KB | 18.2 KB | 15.1 KB | 41.3 KB | 13.0 KB | 32.1 KB | 25.1 KB | 25.7 KB | 24.9 KB |
 | **混合端口** | 0 | 7893 | 7893 | 7893 | 7893 | 7893 | 7893 | 7890 | 7893 | 7893 | 7893 | 7893 |
 | **面板地址** | - | 127.0.0.1:9090 | 127.0.0.1:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | - | 127.0.0.1:9090 | 127.0.0.1:9090 | 127.0.0.1:9090 | 0.0.0.0:9090 |
 | **运行模式** | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule |
 | **TUN** | ✅ | 🚫 | 🚫 | ✅ | ✅ | ✅ | ✅ | ✅ | 🚫 | 🚫 | 🚫 | ✅ |
-| **策略组** | **19** | **16** | **31** | **36** | **57** | **38** | **32** | **28** | **69** | **41** | **41** | **40** |
-| **规则数** | **29** | **21** | **36** | **42** | **48** | **43** | **107** | **23** | **52** | **45** | **44** | **43** |
+| **策略组** | **14** | **16** | **31** | **36** | **57** | **38** | **32** | **28** | **69** | **41** | **41** | **40** |
+| **规则数** | **20** | **21** | **36** | **42** | **48** | **43** | **107** | **23** | **52** | **45** | **44** | **43** |
 
 ## 📄 配置详情
 
@@ -208,32 +208,27 @@
 ### 👤 echs-top
 
 #### 📝 mihomo_smart.yaml
-- **路径**: `echs-top/mihomo_smart.yaml` | **大小**: 15.0 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/Smart_Mode/echs-top/mihomo_smart.yaml)
+- **路径**: `echs-top/mihomo_smart.yaml` | **大小**: 13.2 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/Smart_Mode/echs-top/mihomo_smart.yaml)
 - **模式**: rule | **TUN**: ✅ | **IPv6**: ✅
 <details>
-<summary>🔍 策略组 (19个)</summary>
+<summary>🔍 策略组 (14个)</summary>
 
 | 名称 | 类型 |
 | :--- | :--- |
 | 👆 PROXY | `select` |
 | 👆 PROXYDNS | `select` |
 | 👆 FCM | `select` |
-| 👆 BILIBILI | `select` |
 | 👆 TELEGRAM | `select` |
-| 👆 META | `select` |
-| 👆 TWITTER | `select` |
-| 👆 TIKTOK | `select` |
-| 👆 NETFLIX | `select` |
-| 👆 SPOTIFY | `select` |
 | 👆 AI | `select` |
 | 👆 GOOGLE | `select` |
+| ♻️ URLTEXT | `url-test` |
+| 👆 SMART | `smart` |
 | 👆 国外&#124;SMART | `smart` |
 | 👆 香港&#124;SMART | `smart` |
 | 👆 台湾&#124;SMART | `smart` |
 | 👆 新加坡&#124;SMART | `smart` |
 | 👆 日本&#124;SMART | `smart` |
 | 👆 美国&#124;SMART | `smart` |
-| 👆 GLOBAL | `select` |
 </details>
 
 ---
