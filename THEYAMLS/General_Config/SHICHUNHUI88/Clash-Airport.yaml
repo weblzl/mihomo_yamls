@@ -263,7 +263,6 @@ rules:
 rule-anchor:
   domain-yaml: &domain-yaml {type: http, behavior: domain, interval: 86400, format: yaml}
   class-yaml: &class-yaml {type: http, behavior: classical, interval: 86400, format: yaml}
-  domain-txt: &domain-txt {type: http, behavior: domain, interval: 86400, format: text}
   class-txt: &class-txt {type: http, behavior: classical, interval: 86400, format: text}
   mrs-domain: &mrs-domain {type: http, behavior: domain, interval: 86400, format: mrs}
   mrs-ipcidr: &mrs-ipcidr {type: http, behavior: ipcidr, interval: 86400, format: mrs}
@@ -278,8 +277,8 @@ rule-providers:
   Facebook-zj: {<<: *class-yaml, url: "https://cdn.jsdelivr.net/gh/SHICHUNHUI88/vps-net-optimize@main/clash/Facebook.yaml"}
   Google-zj: {<<: *class-yaml, url: "https://cdn.jsdelivr.net/gh/SHICHUNHUI88/vps-net-optimize@main/clash/Google.yaml"}
   WildRift-zj: {<<: *class-yaml, url: "https://cdn.jsdelivr.net/gh/SHICHUNHUI88/vps-net-optimize@main/clash/Wildrift.yaml"}
-  Agora-zj: {<<: *domain-yaml, url: "https://cdn.jsdelivr.net/gh/SHICHUNHUI88/vps-net-optimize@main/clash/agora.yaml"}
-  GitHub-zj: {<<: *domain-yaml, url: "https://cdn.jsdelivr.net/gh/SHICHUNHUI88/vps-net-optimize@main/clash/GitHub.yaml"}
+  Agora-zj: {<<: *mrs-domain, url: "https://cdn.jsdelivr.net/gh/SHICHUNHUI88/vps-net-optimize@main/clash/agora_domain.mrs"}
+  GitHub-zj: {<<: *class-yaml, url: "https://cdn.jsdelivr.net/gh/SHICHUNHUI88/vps-net-optimize@main/clash/GitHub.yaml"}
   Claude-zj: {<<: *class-yaml, url: "https://cdn.jsdelivr.net/gh/SHICHUNHUI88/vps-net-optimize@main/clash/Claude.yaml"}
   icloud: {<<: *mrs-domain, url: "https://cdn.jsdelivr.net/gh/SHICHUNHUI88/vps-net-optimize@main/remote-mrs/Loy-icloud_domain.mrs"}
   Apple: {<<: *mrs-domain, url: "https://cdn.jsdelivr.net/gh/SHICHUNHUI88/vps-net-optimize@main/remote-mrs/Loy-Apple_domain.mrs"}
