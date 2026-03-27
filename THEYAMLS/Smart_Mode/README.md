@@ -6,15 +6,15 @@
 
 ## ⚔️ 配置横向对比
 
-| 特性 | `mihomo_smart.yaml` | `OneSmart_Lite_Config.yaml` | `OneSmart_Config.yaml` | `clash-fallback-smart-std.yaml` | `clash-all-fallback-smart.yaml` | `clash-all-smart.yaml` | `OneSmartProMCX.yaml` | `smart.yaml` | `MihomoSmartAIO.yaml` | `MihomoSmartProMax.yaml` | `MihomoSmartProPlus.yaml` | `THESmart.yaml` |
+| 特性 | `mihomo_smart.yaml` | `smart.yaml` | `clash-all-smart.yaml` | `clash-all-fallback-smart.yaml` | `clash-fallback-smart-std.yaml` | `OneSmart_Lite_Config.yaml` | `OneSmart_Config.yaml` | `MihomoSmartAIO.yaml` | `MihomoSmartProMax.yaml` | `THESmart.yaml` | `MihomoSmartProPlus.yaml` | `OneSmartProMCX.yaml` |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **大小** | 14.4 KB | 12.5 KB | 20.1 KB | 17.7 KB | 18.2 KB | 15.1 KB | 41.1 KB | 13.0 KB | 32.1 KB | 25.1 KB | 25.7 KB | 24.9 KB |
-| **混合端口** | 0 | 7893 | 7893 | 7893 | 7893 | 7893 | 7893 | 7890 | 7893 | 7893 | 7893 | 7893 |
-| **面板地址** | - | 127.0.0.1:9090 | 127.0.0.1:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | - | 127.0.0.1:9090 | 127.0.0.1:9090 | 127.0.0.1:9090 | 0.0.0.0:9090 |
+| **大小** | 14.4 KB | 13.0 KB | 15.1 KB | 18.2 KB | 17.7 KB | 12.5 KB | 20.1 KB | 32.1 KB | 25.1 KB | 24.9 KB | 25.7 KB | 41.1 KB |
+| **混合端口** | 0 | 7890 | 7893 | 7893 | 7893 | 7893 | 7893 | 7893 | 7893 | 7893 | 7893 | 7893 |
+| **面板地址** | - | - | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 127.0.0.1:9090 | 127.0.0.1:9090 | 127.0.0.1:9090 | 127.0.0.1:9090 | 0.0.0.0:9090 | 127.0.0.1:9090 | 0.0.0.0:9090 |
 | **运行模式** | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule |
-| **TUN** | ✅ | 🚫 | 🚫 | ✅ | ✅ | ✅ | ✅ | ✅ | 🚫 | 🚫 | 🚫 | ✅ |
-| **策略组** | **20** | **16** | **31** | **36** | **57** | **38** | **32** | **28** | **69** | **41** | **41** | **40** |
-| **规则数** | **21** | **21** | **36** | **42** | **48** | **43** | **107** | **23** | **52** | **45** | **44** | **43** |
+| **TUN** | ✅ | ✅ | ✅ | ✅ | ✅ | 🚫 | 🚫 | 🚫 | 🚫 | ✅ | 🚫 | ✅ |
+| **策略组** | **20** | **28** | **38** | **57** | **36** | **16** | **31** | **69** | **41** | **40** | **41** | **32** |
+| **规则数** | **21** | **23** | **43** | **48** | **42** | **21** | **36** | **52** | **45** | **43** | **44** | **107** |
 
 ## 📄 配置详情
 
@@ -142,37 +142,6 @@
 | ... | 还有 21 个 |
 </details>
 
-#### 📝 MihomoSmartProPlus.yaml
-- **路径**: `HenryChiao/MihomoSmartProPlus.yaml` | **大小**: 25.7 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/Smart_Mode/HenryChiao/MihomoSmartProPlus.yaml)
-- **模式**: rule | **TUN**: 🚫 | **IPv6**: ✅
-<details>
-<summary>🔍 策略组 (41个)</summary>
-
-| 名称 | 类型 |
-| :--- | :--- |
-| 👆 默认代理 | `select` |
-| 🔧 故障转移 | `fallback` |
-| 👆 国外流量 | `select` |
-| 👆 国内流量 | `select` |
-| 👆 兜底流量 | `select` |
-| 👆 直接连接 | `select` |
-| 👆 网络测试 | `select` |
-| 👆 UKwifi | `select` |
-| 👆 抖快书定位 | `select` |
-| 👆 Emby服 | `select` |
-| 👆 油管视频 | `select` |
-| 👆 奈飞视频 | `select` |
-| 👆 国际媒体 | `select` |
-| 👆 新闻媒体 | `select` |
-| 👆 电报消息 | `select` |
-| 👆 推特社交 | `select` |
-| 👆 社交平台 | `select` |
-| 👆 人工智能 | `select` |
-| 👆 货币平台 | `select` |
-| 👆 游戏平台 | `select` |
-| ... | 还有 21 个 |
-</details>
-
 #### 📝 THESmart.yaml
 - **路径**: `HenryChiao/THESmart.yaml` | **大小**: 24.9 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/Smart_Mode/HenryChiao/THESmart.yaml)
 - **模式**: rule | **TUN**: ✅ | **IPv6**: ✅
@@ -202,6 +171,37 @@
 | 👆 游戏平台 | `select` |
 | 👆 Github | `select` |
 | ... | 还有 20 个 |
+</details>
+
+#### 📝 MihomoSmartProPlus.yaml
+- **路径**: `HenryChiao/MihomoSmartProPlus.yaml` | **大小**: 25.7 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/Smart_Mode/HenryChiao/MihomoSmartProPlus.yaml)
+- **模式**: rule | **TUN**: 🚫 | **IPv6**: ✅
+<details>
+<summary>🔍 策略组 (41个)</summary>
+
+| 名称 | 类型 |
+| :--- | :--- |
+| 👆 默认代理 | `select` |
+| 🔧 故障转移 | `fallback` |
+| 👆 国外流量 | `select` |
+| 👆 国内流量 | `select` |
+| 👆 兜底流量 | `select` |
+| 👆 直接连接 | `select` |
+| 👆 网络测试 | `select` |
+| 👆 UKwifi | `select` |
+| 👆 抖快书定位 | `select` |
+| 👆 Emby服 | `select` |
+| 👆 油管视频 | `select` |
+| 👆 奈飞视频 | `select` |
+| 👆 国际媒体 | `select` |
+| 👆 新闻媒体 | `select` |
+| 👆 电报消息 | `select` |
+| 👆 推特社交 | `select` |
+| 👆 社交平台 | `select` |
+| 👆 人工智能 | `select` |
+| 👆 货币平台 | `select` |
+| 👆 游戏平台 | `select` |
+| ... | 还有 21 个 |
 </details>
 
 ---
@@ -274,35 +274,35 @@
 ---
 ### 👤 liandu2024
 
-#### 📝 clash-fallback-smart-std.yaml
-- **路径**: `liandu2024/clash-fallback-smart-std.yaml` | **大小**: 17.7 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/Smart_Mode/liandu2024/clash-fallback-smart-std.yaml)
-- **模式**: rule | **TUN**: ✅ | **IPv6**: 🚫
+#### 📝 clash-all-smart.yaml
+- **路径**: `liandu2024/clash-all-smart.yaml` | **大小**: 15.1 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/Smart_Mode/liandu2024/clash-all-smart.yaml)
+- **模式**: rule | **TUN**: ✅ | **IPv6**: ✅
 <details>
-<summary>🔍 策略组 (36个)</summary>
+<summary>🔍 策略组 (38个)</summary>
 
 | 名称 | 类型 |
 | :--- | :--- |
-| 👆 AI | `select` |
+| 👆 ChatGPT | `select` |
+| 👆 Claude | `select` |
 | 👆 Meta AI | `select` |
 | 👆 Perplexity | `select` |
-| 👆 Stream Media | `select` |
 | 👆 GitHub | `select` |
-| 👆 Reddit | `select` |
-| 👆 Nvidia | `select` |
+| 👆 Telegram | `select` |
+| 👆 Twitter(X) | `select` |
+| 👆 WhatsApp | `select` |
+| 👆 Facebook | `select` |
+| 👆 YouTube | `select` |
+| 👆 TikTok | `select` |
+| 👆 Disney | `select` |
+| 👆 Netflix | `select` |
+| 👆 HBO | `select` |
+| 👆 Spotify | `select` |
+| 👆 Amazon | `select` |
 | 👆 Apple | `select` |
 | 👆 Microsoft | `select` |
-| 👆 Games | `select` |
-| 👆 Crypto | `select` |
-| 👆 Test | `select` |
-| 👆 Block | `select` |
-| 👆 国外 | `select` |
-| 👆 国内 | `select` |
-| 👆 其他 | `select` |
-| 👆 所有-手选 | `select` |
-| 👆 所有-智选 | `smart` |
-| 🔧 香港-故转 | `fallback` |
-| 👆 香港-手选 | `select` |
-| ... | 还有 16 个 |
+| 👆 Google | `select` |
+| 👆 Nvidia | `select` |
+| ... | 还有 18 个 |
 </details>
 
 #### 📝 clash-all-fallback-smart.yaml
@@ -336,35 +336,35 @@
 | ... | 还有 37 个 |
 </details>
 
-#### 📝 clash-all-smart.yaml
-- **路径**: `liandu2024/clash-all-smart.yaml` | **大小**: 15.1 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/Smart_Mode/liandu2024/clash-all-smart.yaml)
-- **模式**: rule | **TUN**: ✅ | **IPv6**: ✅
+#### 📝 clash-fallback-smart-std.yaml
+- **路径**: `liandu2024/clash-fallback-smart-std.yaml` | **大小**: 17.7 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/Smart_Mode/liandu2024/clash-fallback-smart-std.yaml)
+- **模式**: rule | **TUN**: ✅ | **IPv6**: 🚫
 <details>
-<summary>🔍 策略组 (38个)</summary>
+<summary>🔍 策略组 (36个)</summary>
 
 | 名称 | 类型 |
 | :--- | :--- |
-| 👆 ChatGPT | `select` |
-| 👆 Claude | `select` |
+| 👆 AI | `select` |
 | 👆 Meta AI | `select` |
 | 👆 Perplexity | `select` |
+| 👆 Stream Media | `select` |
 | 👆 GitHub | `select` |
-| 👆 Telegram | `select` |
-| 👆 Twitter(X) | `select` |
-| 👆 WhatsApp | `select` |
-| 👆 Facebook | `select` |
-| 👆 YouTube | `select` |
-| 👆 TikTok | `select` |
-| 👆 Disney | `select` |
-| 👆 Netflix | `select` |
-| 👆 HBO | `select` |
-| 👆 Spotify | `select` |
-| 👆 Amazon | `select` |
+| 👆 Reddit | `select` |
+| 👆 Nvidia | `select` |
 | 👆 Apple | `select` |
 | 👆 Microsoft | `select` |
-| 👆 Google | `select` |
-| 👆 Nvidia | `select` |
-| ... | 还有 18 个 |
+| 👆 Games | `select` |
+| 👆 Crypto | `select` |
+| 👆 Test | `select` |
+| 👆 Block | `select` |
+| 👆 国外 | `select` |
+| 👆 国内 | `select` |
+| 👆 其他 | `select` |
+| 👆 所有-手选 | `select` |
+| 👆 所有-智选 | `smart` |
+| 🔧 香港-故转 | `fallback` |
+| 👆 香港-手选 | `select` |
+| ... | 还有 16 个 |
 </details>
 
 ---
