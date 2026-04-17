@@ -8,7 +8,7 @@
 
 | 特性 | `mihomo_multi.yaml` | `mihomo_single.yaml` | `config.yaml` | `configfull.yaml` | `configfull_NoAd.yaml` | `configfull_lite.yaml` | `clash-fallback.yaml` | `clash-fallback-dialer.yaml` | `clash-fallback-std.yaml` | `clash-fallback-all.yaml` | `clash-all-fallback.yaml` | `config.yaml` | `ConfigForClash.yaml` | `Clash_Sample.yaml` | `AIO.yaml` | `AIB.yaml` | `config.yaml` | `config.yaml` | `MihomoPro_Config.yaml` | `OneTouch_Config.yaml` | `config.yaml` | `MihomoAIO.yaml` | `MihomoProMax.yaml` | `MihomoProPlus.yaml` | `Clash.yaml` | `mihomo.yaml` |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **大小** | 12.9 KB | 12.6 KB | 32.7 KB | 34.6 KB | 34.1 KB | 17.7 KB | 15.9 KB | 16.3 KB | 17.3 KB | 18.6 KB | 17.2 KB | 13.8 KB | 49.3 KB | 8.4 KB | 10.8 KB | 11.0 KB | 12.8 KB | 18.7 KB | 22.6 KB | 12.4 KB | 28.5 KB | 30.1 KB | 27.4 KB | 27.9 KB | 27.3 KB | 14.2 KB |
+| **大小** | 12.7 KB | 12.4 KB | 32.7 KB | 34.6 KB | 34.1 KB | 17.7 KB | 15.9 KB | 16.3 KB | 17.3 KB | 18.6 KB | 17.2 KB | 13.8 KB | 49.3 KB | 8.4 KB | 10.8 KB | 11.0 KB | 12.8 KB | 18.7 KB | 22.6 KB | 12.4 KB | 28.5 KB | 30.1 KB | 27.4 KB | 27.9 KB | 27.3 KB | 14.2 KB |
 | **混合端口** | 7897 | 7897 | 7890 | 7890 | 7890 | 7890 | 7893 | 7893 | 7893 | 7893 | 7893 | 7890 | 7892 | 7892 | 7890 | 7890 | 7890 | 7892 | 7893 | 7893 | 7893 | 7893 | 7893 | 7893 | 7890 | 0 |
 | **面板地址** | - | - | 127.0.0.1:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | :9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | - | 127.0.0.1:9090 | 127.0.0.1:9090 | 127.0.0.1:9090 | 127.0.0.1:9090 | 127.0.0.1:9090 | 127.0.0.1:9090 | 127.0.0.1:9090 | :9090 | - |
 | **运行模式** | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | Rule | rule |
@@ -787,7 +787,7 @@
 ### 👤 yyhhyyyyyy
 
 #### 📝 mihomo_multi.yaml
-- **路径**: `yyhhyyyyyy/mihomo_multi.yaml` | **大小**: 12.9 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/General_Config/yyhhyyyyyy/mihomo_multi.yaml)
+- **路径**: `yyhhyyyyyy/mihomo_multi.yaml` | **大小**: 12.7 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/General_Config/yyhhyyyyyy/mihomo_multi.yaml)
 - **模式**: rule | **TUN**: ✅ | **IPv6**: 🚫
 <details>
 <summary>🔍 策略组 (33个)</summary>
@@ -818,7 +818,7 @@
 </details>
 
 #### 📝 mihomo_single.yaml
-- **路径**: `yyhhyyyyyy/mihomo_single.yaml` | **大小**: 12.6 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/General_Config/yyhhyyyyyy/mihomo_single.yaml)
+- **路径**: `yyhhyyyyyy/mihomo_single.yaml` | **大小**: 12.4 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/General_Config/yyhhyyyyyy/mihomo_single.yaml)
 - **模式**: rule | **TUN**: ✅ | **IPv6**: 🚫
 <details>
 <summary>🔍 策略组 (33个)</summary>
