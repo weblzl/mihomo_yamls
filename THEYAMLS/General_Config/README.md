@@ -2,19 +2,19 @@
 
 [🔙 返回主页](../../README.md)
 
-> 🤖 自动技术分析 | 34 个配置文件
+> 🤖 自动技术分析 | 37 个配置文件
 
 ## ⚔️ 配置横向对比
 
-| 特性 | `mihomo_multi.yaml` | `mihomo_single.yaml` | `config.yaml` | `configfull.yaml` | `configfull_NoAd.yaml` | `configfull_lite.yaml` | `clash-fallback.yaml` | `clash-fallback-dialer.yaml` | `clash-fallback-std.yaml` | `clash-fallback-all.yaml` | `clash-all-fallback.yaml` | `config.yaml` | `ConfigForClash.yaml` | `Clash_Sample.yaml` | `backup.yaml` | `AIO.yaml` | `AIB.yaml` | `config.yaml` | `config.yaml` | `MihomoPro_Config.yaml` | `OneTouch_Config.yaml` | `config.yaml` | `MihomoAIO.yaml` | `MihomoProMax.yaml` | `MihomoProPlus.yaml` | `mihomo.yaml` | `Clash.yaml` | `mihomo.yaml` | `config_lite.yaml` | `config.yaml` | `Seven1_fallback_Geo.yaml` | `Seven1_fallback_Rule-Set.yaml` | `us_la.yaml` | `Clash-Airport.yaml` |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **大小** | 12.7 KB | 12.4 KB | 32.7 KB | 34.6 KB | 34.1 KB | 17.7 KB | 15.9 KB | 16.3 KB | 17.3 KB | 18.6 KB | 17.2 KB | 13.8 KB | 49.3 KB | 8.4 KB | 12.5 KB | 10.8 KB | 11.0 KB | 12.8 KB | 18.7 KB | 22.6 KB | 12.4 KB | 28.5 KB | 30.1 KB | 27.4 KB | 27.9 KB | 15.8 KB | 27.3 KB | 15.7 KB | 2.9 KB | 8.1 KB | 19.5 KB | 22.1 KB | 18.5 KB | 17.5 KB |
-| **混合端口** | 7897 | 7897 | 7890 | 7890 | 7890 | 7890 | 7893 | 7893 | 7893 | 7893 | 7893 | 7890 | 7892 | 7892 | 7892 | 7890 | 7890 | 7890 | 7892 | 7893 | 7893 | 7893 | 7893 | 7893 | 7893 | 7890 | 7890 | 0 | 7893 | 7893 | 7893 | 7893 | - | - |
-| **面板地址** | - | - | 127.0.0.1:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | :9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | - | 127.0.0.1:9090 | 127.0.0.1:9090 | 127.0.0.1:9090 | 127.0.0.1:9090 | 127.0.0.1:9090 | 127.0.0.1:9090 | 127.0.0.1:9090 | 0.0.0.0:9090 | :9090 | - | - | - | 0.0.0.0:9090 | 0.0.0.0:9090 | 127.0.0.1:9092 | 127.0.0.1:9092 |
-| **运行模式** | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | Rule | rule | rule | rule | rule | rule | rule | rule |
-| **TUN** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 🚫 | 🚫 | ✅ | ✅ | ✅ | ✅ | ✅ | 🚫 | 🚫 | 🚫 | ✅ | 🚫 | 🚫 | 🚫 | ✅ | 🚫 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| **策略组** | **33** | **33** | **115** | **62** | **59** | **47** | **34** | **35** | **36** | **61** | **53** | **29** | **62** | **15** | **22** | **23** | **24** | **26** | **13** | **52** | **15** | **25** | **61** | **54** | **54** | **29** | **27** | **23** | **1** | **18** | **40** | **40** | **15** | **23** |
-| **规则数** | **22** | **22** | **29** | **98** | **97** | **38** | **43** | **43** | **43** | **53** | **42** | **33** | **62** | **11** | **25** | **34** | **34** | **23** | **37** | **40** | **23** | **35** | **52** | **45** | **44** | **27** | **68** | **31** | **16** | **26** | **27** | **27** | **34** | **36** |
+| 特性 | `mihomo_multi.yaml` | `mihomo_single.yaml` | `config.yaml` | `configfull.yaml` | `configfull_NoAd.yaml` | `configfull_lite.yaml` | `clash-fallback.yaml` | `clash-fallback-dialer.yaml` | `clash-fallback-std.yaml` | `clash-fallback-all.yaml` | `clash-all-fallback.yaml` | `config.yaml` | `ConfigForClash.yaml` | `Clash_Sample.yaml` | `backup.yaml` | `AIO.yaml` | `AIB.yaml` | `config.yaml` | `config.yaml` | `MihomoPro_Config.yaml` | `OneTouch_Config.yaml` | `config.yaml` | `2-subscription-clash-rule-set.yaml` | `3-subscription-clash-rule-set.yaml` | `base-clash-ruleset.yaml` | `MihomoAIO.yaml` | `MihomoProMax.yaml` | `MihomoProPlus.yaml` | `mihomo.yaml` | `Clash.yaml` | `mihomo.yaml` | `config_lite.yaml` | `config.yaml` | `Seven1_fallback_Geo.yaml` | `Seven1_fallback_Rule-Set.yaml` | `us_la.yaml` | `Clash-Airport.yaml` |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **大小** | 12.7 KB | 12.4 KB | 32.7 KB | 34.6 KB | 34.1 KB | 17.7 KB | 15.9 KB | 16.3 KB | 17.3 KB | 18.6 KB | 17.2 KB | 13.8 KB | 49.3 KB | 8.4 KB | 12.5 KB | 10.8 KB | 11.0 KB | 12.8 KB | 18.7 KB | 22.6 KB | 12.4 KB | 28.5 KB | 13.4 KB | 13.9 KB | 11.5 KB | 30.1 KB | 27.4 KB | 27.9 KB | 15.8 KB | 27.3 KB | 15.7 KB | 2.9 KB | 8.1 KB | 19.5 KB | 22.1 KB | 18.5 KB | 17.5 KB |
+| **混合端口** | 7897 | 7897 | 7890 | 7890 | 7890 | 7890 | 7893 | 7893 | 7893 | 7893 | 7893 | 7890 | 7892 | 7892 | 7892 | 7890 | 7890 | 7890 | 7892 | 7893 | 7893 | 7893 | - | - | - | 7893 | 7893 | 7893 | 7890 | 7890 | 0 | 7893 | 7893 | 7893 | 7893 | - | - |
+| **面板地址** | - | - | 127.0.0.1:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | :9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | 0.0.0.0:9090 | - | 127.0.0.1:9090 | 127.0.0.1:9090 | 127.0.0.1:9090 | 127.0.0.1:9090 | - | - | - | 127.0.0.1:9090 | 127.0.0.1:9090 | 127.0.0.1:9090 | 0.0.0.0:9090 | :9090 | - | - | - | 0.0.0.0:9090 | 0.0.0.0:9090 | 127.0.0.1:9092 | 127.0.0.1:9092 |
+| **运行模式** | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | rule | Rule | rule | rule | rule | rule | rule | rule | rule |
+| **TUN** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 🚫 | 🚫 | ✅ | ✅ | ✅ | ✅ | ✅ | 🚫 | 🚫 | 🚫 | ✅ | 🚫 | 🚫 | 🚫 | 🚫 | 🚫 | 🚫 | ✅ | 🚫 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **策略组** | **33** | **33** | **115** | **62** | **59** | **47** | **34** | **35** | **36** | **61** | **53** | **29** | **62** | **15** | **22** | **23** | **24** | **26** | **13** | **52** | **15** | **25** | **37** | **38** | **27** | **61** | **54** | **54** | **29** | **27** | **23** | **1** | **18** | **40** | **40** | **15** | **23** |
+| **规则数** | **22** | **22** | **29** | **98** | **97** | **38** | **43** | **43** | **43** | **53** | **42** | **33** | **62** | **11** | **25** | **34** | **34** | **23** | **37** | **40** | **23** | **35** | **20** | **20** | **17** | **52** | **45** | **44** | **27** | **68** | **31** | **16** | **26** | **27** | **27** | **34** | **36** |
 
 ## 📄 配置详情
 
@@ -425,6 +425,102 @@
 | 👆 Trackerslist | `select` |
 | 👆 香港节点 | `select` |
 | ... | 还有 5 个 |
+</details>
+
+---
+### 👤 Pililink
+
+#### 📝 2-subscription-clash-rule-set.yaml
+- **路径**: `Pililink/2-subscription-clash-rule-set.yaml` | **大小**: 13.4 KB | [查看源码](https://github.com/HenryChiao/MIHOMO_YAMLS/blob/main/THEYAMLS/General_Config/Pililink/2-subscription-clash-rule-set.yaml)
+- **模式**: rule | **TUN**: 🚫 | **IPv6**: 🚫
+<details>
+<summary>🔍 策略组 (37个)</summary>
+
+| 名称 | 类型 |
+| :--- | :--- |
+| 👆 🚀 节点选择 | `select` |
+| 👆 A机场常用 | `select` |
+| 👆 B机场常用 | `select` |
+| ♻️ A机场全线路自动优选 | `url-test` |
+| ♻️ B机场全线路自动优选 | `url-test` |
+| ♻️ 🇺🇸 全线路美国优选 | `url-test` |
+| ♻️ 🇸🇬 全线路新加坡优选 | `url-test` |
+| 👆 🤖 人工智能 | `select` |
+| 👆 📲 电报消息 | `select` |
+| 👆 🎮 游戏服务 | `select` |
+| 👆 📈 网络测试 | `select` |
+| 👆 🪟 微软服务 | `select` |
+| 👆 🇬 谷歌服务 | `select` |
+| 👆 🍎 苹果服务 | `select` |
+| 👆 🪜 代理域名 | `select` |
+| 👆 🐟 漏网之鱼 | `select` |
+| 👆 🎯 全球直连 | `select` |
+| 👆 🛑 广告拦截 | `select` |
+| 👆 🔒 私有网络 | `select` |
+| 👆 🇨🇳 直连域名 | `select` |
+| ... | 还有 17 个 |
+</details>
+
+#### 📝 3-subscription-clash-rule-set.yaml
+- **路径**: `Pililink/3-subscription-clash-rule-set.yaml` | **大小**: 13.9 KB | [查看源码](https://github.com/HenryChiao/MIHOMO_YAMLS/blob/main/THEYAMLS/General_Config/Pililink/3-subscription-clash-rule-set.yaml)
+- **模式**: rule | **TUN**: 🚫 | **IPv6**: 🚫
+<details>
+<summary>🔍 策略组 (38个)</summary>
+
+| 名称 | 类型 |
+| :--- | :--- |
+| 👆 🚀 节点选择 | `select` |
+| 👆 A机场常用 | `select` |
+| 👆 B机场常用 | `select` |
+| ♻️ A机场全线路自动优选 | `url-test` |
+| ♻️ B机场全线路自动优选 | `url-test` |
+| ♻️ C全线路优选 | `url-test` |
+| ♻️ 🇺🇸 全线路美国优选 | `url-test` |
+| ♻️ 🇸🇬 全线路新加坡优选 | `url-test` |
+| 👆 🤖 人工智能 | `select` |
+| 👆 📲 电报消息 | `select` |
+| 👆 🎮 游戏服务 | `select` |
+| 👆 📈 网络测试 | `select` |
+| 👆 🪟 微软服务 | `select` |
+| 👆 🇬 谷歌服务 | `select` |
+| 👆 🍎 苹果服务 | `select` |
+| 👆 🪜 代理域名 | `select` |
+| 👆 🐟 漏网之鱼 | `select` |
+| 👆 🎯 全球直连 | `select` |
+| 👆 🛑 广告拦截 | `select` |
+| 👆 🔒 私有网络 | `select` |
+| ... | 还有 18 个 |
+</details>
+
+#### 📝 base-clash-ruleset.yaml
+- **路径**: `Pililink/base-clash-ruleset.yaml` | **大小**: 11.5 KB | [查看源码](https://github.com/HenryChiao/MIHOMO_YAMLS/blob/main/THEYAMLS/General_Config/Pililink/base-clash-ruleset.yaml)
+- **模式**: rule | **TUN**: 🚫 | **IPv6**: 🚫
+<details>
+<summary>🔍 策略组 (27个)</summary>
+
+| 名称 | 类型 |
+| :--- | :--- |
+| ♻️ 🚀 节点选择 | `url-test` |
+| 👆 🤖 人工智能 | `select` |
+| 👆 📲 电报消息 | `select` |
+| ♻️ 🐟 漏网之鱼 | `url-test` |
+| 👆 🎯 全球直连 | `select` |
+| ♻️ 🇭🇰 香港节点 | `url-test` |
+| ♻️ 🇯🇵 日本节点 | `url-test` |
+| ♻️ 🇰🇷 韩国节点 | `url-test` |
+| ♻️ 🇸🇬 新加坡节点 | `url-test` |
+| ♻️ 🇺🇸 美国节点 | `url-test` |
+| ♻️ 🇺🇸 美国自动选择 | `url-test` |
+| ♻️ 🇹🇼 台湾节点 | `url-test` |
+| ♻️ 🇪🇺 欧洲节点 | `url-test` |
+| ♻️ 🇹🇷 土耳其节点 | `url-test` |
+| ♻️ 🇮🇳 印度节点 | `url-test` |
+| ♻️ 🇷🇺 俄罗斯节点 | `url-test` |
+| ♻️ 🌏 其他地区 | `url-test` |
+| 👆 🎮 游戏服务 | `select` |
+| ♻️ 🪜 代理域名 | `url-test` |
+| 👆 📈 网络测试 | `select` |
+| ... | 还有 7 个 |
 </details>
 
 ---
