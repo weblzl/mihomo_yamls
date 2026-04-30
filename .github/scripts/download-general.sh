@@ -40,6 +40,9 @@ https://gist.github.com/SHICHUNHUI88/b8e2ee8ca31a91f3dbc130e4e35e9996/raw/Clash-
 https://raw.githubusercontent.com/lvbibir/clash/refs/heads/master/mihomo.yaml|THEYAMLS/General_Config/lvbibir/mihomo.yaml
 https://raw.githubusercontent.com/Seven1echo/Yaml/refs/heads/main/Seven1_fallback_Geo.yaml|THEYAMLS/General_Config/Seven1echo/Seven1_fallback_Geo.yaml
 https://raw.githubusercontent.com/Seven1echo/Yaml/refs/heads/main/Seven1_fallback_Rule-Set.yaml|THEYAMLS/General_Config/Seven1echo/Seven1_fallback_Rule-Set.yaml
+https://raw.githubusercontent.com/Pililink/AirRules/refs/heads/main/clash/config/base-clash-ruleset.yaml|THEYAMLS/General_Config/Pililink/base-clash-ruleset.yaml
+https://raw.githubusercontent.com/Pililink/AirRules/refs/heads/main/clash/config/2-subscription-clash-rule-set.yaml|THEYAMLS/General_Config/Pililink/2-subscription-clash-rule-set.yaml
+https://raw.githubusercontent.com/Pililink/AirRules/refs/heads/main/clash/config/3-subscription-clash-rule-set.yaml|THEYAMLS/General_Config/Pililink/3-subscription-clash-rule-set.yaml
 EOF
 )
 
