@@ -348,7 +348,7 @@ jobs:
             ./cmd/sing-box
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: sing-box-ref1nd-stable-${{ matrix.name }}
           path: sing-box*
@@ -406,7 +406,7 @@ jobs:
             ./cmd/sing-box
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: sing-box-ref1nd-test-${{ matrix.name }}
           path: sing-box*
@@ -464,7 +464,7 @@ jobs:
             ./cmd/sing-box
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: sing-box-sagernet-stable-${{ matrix.name }}
           path: sing-box*
@@ -522,7 +522,7 @@ jobs:
             ./cmd/sing-box
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: sing-box-sagernet-test-${{ matrix.name }}
           path: sing-box*
@@ -563,7 +563,7 @@ jobs:
           done
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: mihomo-meta-files
           path: ./mihomo/*
@@ -600,7 +600,7 @@ jobs:
           done
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: mihomo-alpha-files
           path: ./mihomo/*
@@ -647,7 +647,7 @@ jobs:
           done
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: mihomo-smart-files
           path: ./mihomo/*
