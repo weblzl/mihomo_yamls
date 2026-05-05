@@ -1,0 +1,856 @@
+name: Update Core
+
+permissions:
+  contents: write
+
+on:
+  workflow_dispatch:
+    inputs:
+      projects:
+        description: '要更新的项目 (sing-box / mihomo / all)'
+        required: false
+        default: 'all'
+      force_update:
+        description: '强制更新（忽略版本检查）'
+        required: false
+        type: boolean
+        default: false
+
+  schedule:
+    - cron: "0 18 * * *"
+
+  push:
+    branches:
+      - main
+    paths:
+      # 只监听 workflow 文件本身，脚本变动不触发构建
+      - '.github/workflows/update-core.yml'
+
+# ============================================================
+# 阶段一：获取 Go 版本
+# ============================================================
+jobs:
+  go:
+    name: 获取 Go 版本
+    runs-on: ubuntu-latest
+    outputs:
+      go_version: ${{ steps.go.outputs.version }}
+    steps:
+      - name: Get latest Go version
+        id: go
+        run: |
+          echo "version=$(curl -sSL https://raw.githubusercontent.com/actions/go-versions/update-versions-manifest-file/versions-manifest.json | jq -r '.[0].version')" >> $GITHUB_OUTPUT
+
+# ============================================================
+# 阶段二：各变体版本检测
+# ============================================================
+
+  # ---------- sing-box reF1nd-Stable ----------
+  ref1nd_stable_version:
+    name: 检测 sing-box reF1nd-Stable 版本
+    runs-on: ubuntu-latest
+    if: |
+      github.event.inputs.projects == 'all' ||
+      github.event.inputs.projects == 'sing-box' ||
+      github.event_name != 'workflow_dispatch'
+    outputs:
+      version:     ${{ steps.version.outputs.version }}
+      time:        ${{ steps.version.outputs.time }}
+      tags:        ${{ steps.version.outputs.tags }}
+      skip_update: ${{ steps.compare.outputs.skip_update }}
+    steps:
+      - name: 获取版本
+        id: version
+        run: |
+          echo "version=$(curl -sSL https://api.github.com/repos/reF1nd/sing-box-releases/releases/latest | jq -r '.tag_name' | sed 's/^v//')" >> $GITHUB_OUTPUT
+          echo "time=$(curl -sSL https://api.github.com/repos/reF1nd/sing-box-releases/releases/latest | jq -r '.published_at // .created_at' | xargs -I {} date -d '{} +8 hours' '+%Y-%m-%d')" >> $GITHUB_OUTPUT
+          echo "tags=with_gvisor,with_quic,with_dhcp,with_utls,with_clash_api" >> $GITHUB_OUTPUT
+
+      - name: 版本比对
+        id: compare
+        run: |
+          current_body=$(curl -sSL "https://api.github.com/repos/${{ github.repository }}/releases/tags/sing-box" | jq -r '.body // ""')
+          ver="${{ steps.version.outputs.version }}"
+          t="${{ steps.version.outputs.time }}"
+          if [[ "${{ github.event.inputs.force_update }}" == "true" ]]; then
+            echo "skip_update=false" >> $GITHUB_OUTPUT
+          elif echo "${current_body}" | grep -q "reF1nd-Stable.*${ver}.*${t}"; then
+            echo "已是最新 reF1nd-Stable ${ver}，跳过"
+            echo "skip_update=true" >> $GITHUB_OUTPUT
+          else
+            echo "需要更新 reF1nd-Stable → ${ver}"
+            echo "skip_update=false" >> $GITHUB_OUTPUT
+          fi
+
+  # ---------- sing-box reF1nd-Test ----------
+  ref1nd_test_version:
+    name: 检测 sing-box reF1nd-Test 版本
+    runs-on: ubuntu-latest
+    if: |
+      github.event.inputs.projects == 'all' ||
+      github.event.inputs.projects == 'sing-box' ||
+      github.event_name != 'workflow_dispatch'
+    outputs:
+      version:     ${{ steps.version.outputs.version }}
+      time:        ${{ steps.version.outputs.time }}
+      tags:        ${{ steps.version.outputs.tags }}
+      skip_update: ${{ steps.compare.outputs.skip_update }}
+    steps:
+      - name: 获取版本
+        id: version
+        run: |
+          echo "version=$(curl -sSL https://api.github.com/repos/reF1nd/sing-box-releases/releases | jq -r '[.[] | select(.tag_name | test("alpha|beta|rc"))][0].tag_name' | sed 's/^v//')" >> $GITHUB_OUTPUT
+          echo "time=$(curl -sSL https://api.github.com/repos/reF1nd/sing-box-releases/releases | jq -r '[.[] | select(.tag_name | test("alpha|beta|rc"))][0] | (.published_at // .created_at)' | xargs -I {} date -d '{} +8 hours' '+%Y-%m-%d')" >> $GITHUB_OUTPUT
+          echo "tags=with_gvisor,with_quic,with_dhcp,with_utls,with_clash_api" >> $GITHUB_OUTPUT
+
+      - name: 版本比对
+        id: compare
+        run: |
+          current_body=$(curl -sSL "https://api.github.com/repos/${{ github.repository }}/releases/tags/sing-box" | jq -r '.body // ""')
+          ver="${{ steps.version.outputs.version }}"
+          t="${{ steps.version.outputs.time }}"
+          if [[ "${{ github.event.inputs.force_update }}" == "true" ]]; then
+            echo "skip_update=false" >> $GITHUB_OUTPUT
+          elif echo "${current_body}" | grep -q "reF1nd-Test.*${ver}.*${t}"; then
+            echo "已是最新 reF1nd-Test ${ver}，跳过"
+            echo "skip_update=true" >> $GITHUB_OUTPUT
+          else
+            echo "需要更新 reF1nd-Test → ${ver}"
+            echo "skip_update=false" >> $GITHUB_OUTPUT
+          fi
+
+  # ---------- sing-box SagerNet-Stable ----------
+  sagernet_stable_version:
+    name: 检测 sing-box SagerNet-Stable 版本
+    runs-on: ubuntu-latest
+    if: |
+      github.event.inputs.projects == 'all' ||
+      github.event.inputs.projects == 'sing-box' ||
+      github.event_name != 'workflow_dispatch'
+    outputs:
+      version:     ${{ steps.version.outputs.version }}
+      time:        ${{ steps.version.outputs.time }}
+      tags:        ${{ steps.version.outputs.tags }}
+      skip_update: ${{ steps.compare.outputs.skip_update }}
+    steps:
+      - name: 获取版本
+        id: version
+        run: |
+          echo "version=$(curl -sSL https://api.github.com/repos/SagerNet/sing-box/releases/latest | jq -r '.tag_name' | sed 's/^v//')" >> $GITHUB_OUTPUT
+          echo "time=$(curl -sSL https://api.github.com/repos/SagerNet/sing-box/releases/latest | jq -r '.published_at // .created_at' | xargs -I {} date -d '{} +8 hours' '+%Y-%m-%d')" >> $GITHUB_OUTPUT
+          echo "tags=with_gvisor,with_quic,with_dhcp,with_utls,with_clash_api" >> $GITHUB_OUTPUT
+
+      - name: 版本比对
+        id: compare
+        run: |
+          current_body=$(curl -sSL "https://api.github.com/repos/${{ github.repository }}/releases/tags/sing-box" | jq -r '.body // ""')
+          ver="${{ steps.version.outputs.version }}"
+          t="${{ steps.version.outputs.time }}"
+          if [[ "${{ github.event.inputs.force_update }}" == "true" ]]; then
+            echo "skip_update=false" >> $GITHUB_OUTPUT
+          elif echo "${current_body}" | grep -q "SagerNet-Stable.*${ver}.*${t}"; then
+            echo "已是最新 SagerNet-Stable ${ver}，跳过"
+            echo "skip_update=true" >> $GITHUB_OUTPUT
+          else
+            echo "需要更新 SagerNet-Stable → ${ver}"
+            echo "skip_update=false" >> $GITHUB_OUTPUT
+          fi
+
+  # ---------- sing-box SagerNet-Test ----------
+  sagernet_test_version:
+    name: 检测 sing-box SagerNet-Test 版本
+    runs-on: ubuntu-latest
+    if: |
+      github.event.inputs.projects == 'all' ||
+      github.event.inputs.projects == 'sing-box' ||
+      github.event_name != 'workflow_dispatch'
+    outputs:
+      version:     ${{ steps.version.outputs.version }}
+      time:        ${{ steps.version.outputs.time }}
+      tags:        ${{ steps.version.outputs.tags }}
+      skip_update: ${{ steps.compare.outputs.skip_update }}
+    steps:
+      - name: 获取版本
+        id: version
+        run: |
+          echo "version=$(curl -sSL https://api.github.com/repos/SagerNet/sing-box/releases | jq -r '[.[] | select(.tag_name | test("alpha|beta|rc"))][0].tag_name' | sed 's/^v//')" >> $GITHUB_OUTPUT
+          echo "time=$(curl -sSL https://api.github.com/repos/SagerNet/sing-box/releases | jq -r '[.[] | select(.tag_name | test("alpha|beta|rc"))][0] | (.published_at // .created_at)' | xargs -I {} date -d '{} +8 hours' '+%Y-%m-%d')" >> $GITHUB_OUTPUT
+          echo "tags=with_gvisor,with_quic,with_dhcp,with_utls,with_clash_api" >> $GITHUB_OUTPUT
+
+      - name: 版本比对
+        id: compare
+        run: |
+          current_body=$(curl -sSL "https://api.github.com/repos/${{ github.repository }}/releases/tags/sing-box" | jq -r '.body // ""')
+          ver="${{ steps.version.outputs.version }}"
+          t="${{ steps.version.outputs.time }}"
+          if [[ "${{ github.event.inputs.force_update }}" == "true" ]]; then
+            echo "skip_update=false" >> $GITHUB_OUTPUT
+          elif echo "${current_body}" | grep -q "SagerNet-Test.*${ver}.*${t}"; then
+            echo "已是最新 SagerNet-Test ${ver}，跳过"
+            echo "skip_update=true" >> $GITHUB_OUTPUT
+          else
+            echo "需要更新 SagerNet-Test → ${ver}"
+            echo "skip_update=false" >> $GITHUB_OUTPUT
+          fi
+
+  # ---------- mihomo Meta ----------
+  mihomo_meta_version:
+    name: 检测 mihomo Meta 版本
+    runs-on: ubuntu-latest
+    if: |
+      github.event.inputs.projects == 'all' ||
+      github.event.inputs.projects == 'mihomo' ||
+      github.event_name != 'workflow_dispatch'
+    outputs:
+      version:     ${{ steps.version.outputs.version }}
+      time:        ${{ steps.version.outputs.time }}
+      skip_update: ${{ steps.compare.outputs.skip_update }}
+    steps:
+      - name: 获取版本
+        id: version
+        run: |
+          echo "version=$(curl -sSL https://api.github.com/repos/MetaCubeX/mihomo/releases/latest | jq -r '.tag_name')" >> $GITHUB_OUTPUT
+          echo "time=$(curl -sSL https://api.github.com/repos/MetaCubeX/mihomo/releases/latest | jq -r '.published_at // .created_at' | xargs -I {} date -d '{} +8 hours' '+%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+      - name: 版本比对
+        id: compare
+        run: |
+          current_body=$(curl -sSL "https://api.github.com/repos/${{ github.repository }}/releases/tags/mihomo" | jq -r '.body // ""')
+          ver="${{ steps.version.outputs.version }}"
+          t="${{ steps.version.outputs.time }}"
+          if [[ "${{ github.event.inputs.force_update }}" == "true" ]]; then
+            echo "skip_update=false" >> $GITHUB_OUTPUT
+          elif echo "${current_body}" | grep -q "mihomo Meta.*${ver}.*${t}"; then
+            echo "skip_update=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip_update=false" >> $GITHUB_OUTPUT
+          fi
+
+  # ---------- mihomo Alpha ----------
+  mihomo_alpha_version:
+    name: 检测 mihomo Alpha 版本
+    runs-on: ubuntu-latest
+    if: |
+      github.event.inputs.projects == 'all' ||
+      github.event.inputs.projects == 'mihomo' ||
+      github.event_name != 'workflow_dispatch'
+    outputs:
+      version:     ${{ steps.version.outputs.version }}
+      time:        ${{ steps.version.outputs.time }}
+      skip_update: ${{ steps.compare.outputs.skip_update }}
+    steps:
+      - name: 获取版本
+        id: version
+        run: |
+          echo "version=$(curl -sSL https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/version.txt | tr -d '[:space:]')" >> $GITHUB_OUTPUT
+          echo "time=$(curl -sSL https://api.github.com/repos/MetaCubeX/mihomo/releases | jq -r '[.[] | select(.tag_name=="Prerelease-Alpha")][0] | (.updated_at // .created_at)' | xargs -I {} date -d '{} +8 hours' '+%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+      - name: 版本比对
+        id: compare
+        run: |
+          current_body=$(curl -sSL "https://api.github.com/repos/${{ github.repository }}/releases/tags/mihomo" | jq -r '.body // ""')
+          ver="${{ steps.version.outputs.version }}"
+          t="${{ steps.version.outputs.time }}"
+          if [[ "${{ github.event.inputs.force_update }}" == "true" ]]; then
+            echo "skip_update=false" >> $GITHUB_OUTPUT
+          elif echo "${current_body}" | grep -q "mihomo Alpha.*${ver}.*${t}"; then
+            echo "skip_update=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip_update=false" >> $GITHUB_OUTPUT
+          fi
+
+  # ---------- mihomo Smart ----------
+  mihomo_smart_version:
+    name: 检测 mihomo Smart 版本
+    runs-on: ubuntu-latest
+    if: |
+      github.event.inputs.projects == 'all' ||
+      github.event.inputs.projects == 'mihomo' ||
+      github.event_name != 'workflow_dispatch'
+    outputs:
+      version:     ${{ steps.version.outputs.version }}
+      time:        ${{ steps.version.outputs.time }}
+      skip_update: ${{ steps.compare.outputs.skip_update }}
+    steps:
+      - name: 获取版本
+        id: version
+        run: |
+          echo "version=$(curl -sSL https://github.com/vernesong/mihomo/releases/download/Prerelease-Alpha/version.txt | tr -d '[:space:]')" >> $GITHUB_OUTPUT
+          echo "time=$(curl -sSL https://api.github.com/repos/vernesong/mihomo/releases | jq -r '[.[] | select(.tag_name=="Prerelease-Alpha")][0] | (.updated_at // .created_at)' | xargs -I {} date -d '{} +8 hours' '+%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+      - name: 版本比对
+        id: compare
+        run: |
+          current_body=$(curl -sSL "https://api.github.com/repos/${{ github.repository }}/releases/tags/mihomo" | jq -r '.body // ""')
+          ver="${{ steps.version.outputs.version }}"
+          t="${{ steps.version.outputs.time }}"
+          if [[ "${{ github.event.inputs.force_update }}" == "true" ]]; then
+            echo "skip_update=false" >> $GITHUB_OUTPUT
+          elif echo "${current_body}" | grep -q "mihomo Smart.*${ver}.*${t}"; then
+            echo "skip_update=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip_update=false" >> $GITHUB_OUTPUT
+          fi
+
+# ============================================================
+# 阶段三：构建 sing-box（内联矩阵，正确分支名）
+# ============================================================
+
+  build_ref1nd_stable:
+    name: 构建 sing-box reF1nd-Stable (${{ matrix.name }})
+    runs-on: ubuntu-latest
+    needs: [go, ref1nd_stable_version]
+    if: needs.ref1nd_stable_version.outputs.skip_update != 'true'
+    strategy:
+      matrix:
+        include:
+          - { name: linux-amd64-v1,         goos: linux,   goarch: amd64,  goamd64: v1 }
+          - { name: linux-amd64-v3,         goos: linux,   goarch: amd64,  goamd64: v3 }
+          - { name: linux-armv5,            goos: linux,   goarch: arm,    goarm: "5" }
+          - { name: linux-armv6,            goos: linux,   goarch: arm,    goarm: "6" }
+          - { name: linux-armv7,            goos: linux,   goarch: arm,    goarm: "7" }
+          - { name: linux-arm64,            goos: linux,   goarch: arm64 }
+          - { name: linux-mips-softfloat,   goos: linux,   goarch: mips,   gomips: softfloat }
+          - { name: linux-mipsle-softfloat, goos: linux,   goarch: mipsle, gomips: softfloat }
+          - { name: linux-mipsle-hardfloat, goos: linux,   goarch: mipsle, gomips: hardfloat }
+          - { name: windows-amd64-v1,       goos: windows, goarch: amd64,  goamd64: v1 }
+          - { name: windows-amd64-v3,       goos: windows, goarch: amd64,  goamd64: v3 }
+          - { name: windows-arm64,          goos: windows, goarch: arm64 }
+      fail-fast: false
+    env:
+      GOOS:        ${{ matrix.goos }}
+      GOARCH:      ${{ matrix.goarch }}
+      GOAMD64:     ${{ matrix.goamd64 }}
+      GOARM:       ${{ matrix.goarm }}
+      GOMIPS:      ${{ matrix.gomips }}
+      CGO_ENABLED: 0
+      VERSION:     ${{ needs.ref1nd_stable_version.outputs.version }}
+      TAGS:        ${{ needs.ref1nd_stable_version.outputs.tags }}
+    steps:
+      - name: Checkout reF1nd/sing-box (reF1nd-stable)
+        uses: actions/checkout@v4
+        with:
+          repository: reF1nd/sing-box
+          ref: reF1nd-stable
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ needs.go.outputs.go_version }}
+          cache: false
+
+      - name: Build
+        run: |
+          go build -v -trimpath \
+            -ldflags "-checklinkname=0 -X 'github.com/sagernet/sing-box/constant.Version=${VERSION}' -s -w -buildid=" \
+            -tags "${TAGS}" \
+            -o sing-box${{ matrix.goos == 'windows' && '.exe' || '' }} \
+            ./cmd/sing-box
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sing-box-ref1nd-stable-${{ matrix.name }}
+          path: sing-box*
+          retention-days: 1
+
+  build_ref1nd_test:
+    name: 构建 sing-box reF1nd-Test (${{ matrix.name }})
+    runs-on: ubuntu-latest
+    needs: [go, ref1nd_test_version]
+    if: needs.ref1nd_test_version.outputs.skip_update != 'true'
+    strategy:
+      matrix:
+        include:
+          - { name: linux-amd64-v1,         goos: linux,   goarch: amd64,  goamd64: v1 }
+          - { name: linux-amd64-v3,         goos: linux,   goarch: amd64,  goamd64: v3 }
+          - { name: linux-armv5,            goos: linux,   goarch: arm,    goarm: "5" }
+          - { name: linux-armv6,            goos: linux,   goarch: arm,    goarm: "6" }
+          - { name: linux-armv7,            goos: linux,   goarch: arm,    goarm: "7" }
+          - { name: linux-arm64,            goos: linux,   goarch: arm64 }
+          - { name: linux-mips-softfloat,   goos: linux,   goarch: mips,   gomips: softfloat }
+          - { name: linux-mipsle-softfloat, goos: linux,   goarch: mipsle, gomips: softfloat }
+          - { name: linux-mipsle-hardfloat, goos: linux,   goarch: mipsle, gomips: hardfloat }
+          - { name: windows-amd64-v1,       goos: windows, goarch: amd64,  goamd64: v1 }
+          - { name: windows-amd64-v3,       goos: windows, goarch: amd64,  goamd64: v3 }
+          - { name: windows-arm64,          goos: windows, goarch: arm64 }
+      fail-fast: false
+    env:
+      GOOS:        ${{ matrix.goos }}
+      GOARCH:      ${{ matrix.goarch }}
+      GOAMD64:     ${{ matrix.goamd64 }}
+      GOARM:       ${{ matrix.goarm }}
+      GOMIPS:      ${{ matrix.gomips }}
+      CGO_ENABLED: 0
+      VERSION:     ${{ needs.ref1nd_test_version.outputs.version }}
+      TAGS:        ${{ needs.ref1nd_test_version.outputs.tags }}
+    steps:
+      - name: Checkout reF1nd/sing-box (reF1nd-testing)
+        uses: actions/checkout@v4
+        with:
+          repository: reF1nd/sing-box
+          ref: reF1nd-testing
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ needs.go.outputs.go_version }}
+          cache: false
+
+      - name: Build
+        run: |
+          go build -v -trimpath \
+            -ldflags "-checklinkname=0 -X 'github.com/sagernet/sing-box/constant.Version=${VERSION}' -s -w -buildid=" \
+            -tags "${TAGS}" \
+            -o sing-box${{ matrix.goos == 'windows' && '.exe' || '' }} \
+            ./cmd/sing-box
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sing-box-ref1nd-test-${{ matrix.name }}
+          path: sing-box*
+          retention-days: 1
+
+  build_sagernet_stable:
+    name: 构建 sing-box SagerNet-Stable (${{ matrix.name }})
+    runs-on: ubuntu-latest
+    needs: [go, sagernet_stable_version]
+    if: needs.sagernet_stable_version.outputs.skip_update != 'true'
+    strategy:
+      matrix:
+        include:
+          - { name: linux-amd64-v1,         goos: linux,   goarch: amd64,  goamd64: v1 }
+          - { name: linux-amd64-v3,         goos: linux,   goarch: amd64,  goamd64: v3 }
+          - { name: linux-armv5,            goos: linux,   goarch: arm,    goarm: "5" }
+          - { name: linux-armv6,            goos: linux,   goarch: arm,    goarm: "6" }
+          - { name: linux-armv7,            goos: linux,   goarch: arm,    goarm: "7" }
+          - { name: linux-arm64,            goos: linux,   goarch: arm64 }
+          - { name: linux-mips-softfloat,   goos: linux,   goarch: mips,   gomips: softfloat }
+          - { name: linux-mipsle-softfloat, goos: linux,   goarch: mipsle, gomips: softfloat }
+          - { name: linux-mipsle-hardfloat, goos: linux,   goarch: mipsle, gomips: hardfloat }
+          - { name: windows-amd64-v1,       goos: windows, goarch: amd64,  goamd64: v1 }
+          - { name: windows-amd64-v3,       goos: windows, goarch: amd64,  goamd64: v3 }
+          - { name: windows-arm64,          goos: windows, goarch: arm64 }
+      fail-fast: false
+    env:
+      GOOS:        ${{ matrix.goos }}
+      GOARCH:      ${{ matrix.goarch }}
+      GOAMD64:     ${{ matrix.goamd64 }}
+      GOARM:       ${{ matrix.goarm }}
+      GOMIPS:      ${{ matrix.gomips }}
+      CGO_ENABLED: 0
+      VERSION:     ${{ needs.sagernet_stable_version.outputs.version }}
+      TAGS:        ${{ needs.sagernet_stable_version.outputs.tags }}
+    steps:
+      - name: Checkout SagerNet/sing-box (stable)
+        uses: actions/checkout@v4
+        with:
+          repository: SagerNet/sing-box
+          ref: stable
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ needs.go.outputs.go_version }}
+          cache: false
+
+      - name: Build
+        run: |
+          go build -v -trimpath \
+            -ldflags "-checklinkname=0 -X 'github.com/sagernet/sing-box/constant.Version=${VERSION}' -s -w -buildid=" \
+            -tags "${TAGS}" \
+            -o sing-box${{ matrix.goos == 'windows' && '.exe' || '' }} \
+            ./cmd/sing-box
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sing-box-sagernet-stable-${{ matrix.name }}
+          path: sing-box*
+          retention-days: 1
+
+  build_sagernet_test:
+    name: 构建 sing-box SagerNet-Test (${{ matrix.name }})
+    runs-on: ubuntu-latest
+    needs: [go, sagernet_test_version]
+    if: needs.sagernet_test_version.outputs.skip_update != 'true'
+    strategy:
+      matrix:
+        include:
+          - { name: linux-amd64-v1,         goos: linux,   goarch: amd64,  goamd64: v1 }
+          - { name: linux-amd64-v3,         goos: linux,   goarch: amd64,  goamd64: v3 }
+          - { name: linux-armv5,            goos: linux,   goarch: arm,    goarm: "5" }
+          - { name: linux-armv6,            goos: linux,   goarch: arm,    goarm: "6" }
+          - { name: linux-armv7,            goos: linux,   goarch: arm,    goarm: "7" }
+          - { name: linux-arm64,            goos: linux,   goarch: arm64 }
+          - { name: linux-mips-softfloat,   goos: linux,   goarch: mips,   gomips: softfloat }
+          - { name: linux-mipsle-softfloat, goos: linux,   goarch: mipsle, gomips: softfloat }
+          - { name: linux-mipsle-hardfloat, goos: linux,   goarch: mipsle, gomips: hardfloat }
+          - { name: windows-amd64-v1,       goos: windows, goarch: amd64,  goamd64: v1 }
+          - { name: windows-amd64-v3,       goos: windows, goarch: amd64,  goamd64: v3 }
+          - { name: windows-arm64,          goos: windows, goarch: arm64 }
+      fail-fast: false
+    env:
+      GOOS:        ${{ matrix.goos }}
+      GOARCH:      ${{ matrix.goarch }}
+      GOAMD64:     ${{ matrix.goamd64 }}
+      GOARM:       ${{ matrix.goarm }}
+      GOMIPS:      ${{ matrix.gomips }}
+      CGO_ENABLED: 0
+      VERSION:     ${{ needs.sagernet_test_version.outputs.version }}
+      TAGS:        ${{ needs.sagernet_test_version.outputs.tags }}
+    steps:
+      - name: Checkout SagerNet/sing-box (testing)
+        uses: actions/checkout@v4
+        with:
+          repository: SagerNet/sing-box
+          ref: testing
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ needs.go.outputs.go_version }}
+          cache: false
+
+      - name: Build
+        run: |
+          go build -v -trimpath \
+            -ldflags "-checklinkname=0 -X 'github.com/sagernet/sing-box/constant.Version=${VERSION}' -s -w -buildid=" \
+            -tags "${TAGS}" \
+            -o sing-box${{ matrix.goos == 'windows' && '.exe' || '' }} \
+            ./cmd/sing-box
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sing-box-sagernet-test-${{ matrix.name }}
+          path: sing-box*
+          retention-days: 1
+
+# ============================================================
+# 阶段四：下载 mihomo 二进制
+# ============================================================
+
+  download_mihomo_meta:
+    name: 下载 mihomo Meta
+    runs-on: ubuntu-latest
+    needs: [mihomo_meta_version]
+    if: needs.mihomo_meta_version.outputs.skip_update != 'true'
+    env:
+      VERSION:  ${{ needs.mihomo_meta_version.outputs.version }}
+      BASE_URL: https://github.com/MetaCubeX/mihomo/releases/download
+    steps:
+      - name: 下载并整理
+        run: |
+          mkdir -p ./mihomo ./tmp
+
+          linux_archs=(amd64-v1 amd64-v3 armv5 armv6 armv7 arm64 mips-softfloat mipsle-softfloat mipsle-hardfloat)
+          for arch in "${linux_archs[@]}"; do
+            echo "下载 linux-${arch}"
+            curl -fsSL "${BASE_URL}/${VERSION}/mihomo-linux-${arch}-${VERSION}.gz" \
+              | gunzip -c > "./mihomo/mihomo-meta-linux-${arch}.upx"
+            chmod +x "./mihomo/mihomo-meta-linux-${arch}.upx"
+          done
+
+          windows_archs=(amd64-v1 amd64-v3 arm64)
+          for arch in "${windows_archs[@]}"; do
+            echo "下载 windows-${arch}"
+            curl -fsSL "${BASE_URL}/${VERSION}/mihomo-windows-${arch}-${VERSION}.zip" -o ./tmp/win.zip
+            unzip -q -o ./tmp/win.zip -d ./tmp/win/
+            mv -f "./tmp/win/mihomo-windows-${arch}.exe" "./mihomo/mihomo-meta-windows-${arch}.exe"
+            rm -rf ./tmp/win ./tmp/win.zip
+          done
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mihomo-meta-files
+          path: ./mihomo/*
+          retention-days: 1
+
+  download_mihomo_alpha:
+    name: 下载 mihomo Alpha
+    runs-on: ubuntu-latest
+    needs: [mihomo_alpha_version]
+    if: needs.mihomo_alpha_version.outputs.skip_update != 'true'
+    env:
+      VERSION:  ${{ needs.mihomo_alpha_version.outputs.version }}
+      BASE_URL: https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha
+    steps:
+      - name: 下载并整理
+        run: |
+          mkdir -p ./mihomo ./tmp
+
+          linux_archs=(amd64-v1 amd64-v3 armv5 armv6 armv7 arm64 mips-softfloat mipsle-softfloat mipsle-hardfloat)
+          for arch in "${linux_archs[@]}"; do
+            echo "下载 linux-${arch}"
+            curl -fsSL "${BASE_URL}/mihomo-linux-${arch}-${VERSION}.gz" \
+              | gunzip -c > "./mihomo/mihomo-alpha-linux-${arch}.upx"
+            chmod +x "./mihomo/mihomo-alpha-linux-${arch}.upx"
+          done
+
+          windows_archs=(amd64-v1 amd64-v3 arm64)
+          for arch in "${windows_archs[@]}"; do
+            echo "下载 windows-${arch}"
+            curl -fsSL "${BASE_URL}/mihomo-windows-${arch}-${VERSION}.zip" -o ./tmp/win.zip
+            unzip -q -o ./tmp/win.zip -d ./tmp/win/
+            mv -f "./tmp/win/mihomo-windows-${arch}.exe" "./mihomo/mihomo-alpha-windows-${arch}.exe"
+            rm -rf ./tmp/win ./tmp/win.zip
+          done
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mihomo-alpha-files
+          path: ./mihomo/*
+          retention-days: 1
+
+  download_mihomo_smart:
+    name: 下载 mihomo Smart
+    runs-on: ubuntu-latest
+    needs: [mihomo_smart_version]
+    if: needs.mihomo_smart_version.outputs.skip_update != 'true'
+    env:
+      VERSION:  ${{ needs.mihomo_smart_version.outputs.version }}
+      BASE_URL: https://github.com/vernesong/mihomo/releases/download/Prerelease-Alpha
+    steps:
+      - name: 下载并整理
+        run: |
+          mkdir -p ./mihomo ./tmp
+          set +e  # Smart 版本部分平台可能不存在，允许单个失败
+
+          linux_archs=(amd64-v1 amd64-v3 armv5 armv6 armv7 arm64 mips-softfloat mipsle-softfloat mipsle-hardfloat)
+          for arch in "${linux_archs[@]}"; do
+            echo "下载 linux-${arch}"
+            curl -fsSL "${BASE_URL}/mihomo-linux-${arch}-${VERSION}.gz" \
+              | gunzip -c > "./mihomo/mihomo-smart-linux-${arch}.upx"
+            if [[ $? -eq 0 && -s "./mihomo/mihomo-smart-linux-${arch}.upx" ]]; then
+              chmod +x "./mihomo/mihomo-smart-linux-${arch}.upx"
+            else
+              echo "  ⚠️  跳过: linux-${arch}"
+              rm -f "./mihomo/mihomo-smart-linux-${arch}.upx"
+            fi
+          done
+
+          windows_archs=(amd64-v1 amd64-v3 arm64)
+          for arch in "${windows_archs[@]}"; do
+            echo "下载 windows-${arch}"
+            curl -fsSL "${BASE_URL}/mihomo-windows-${arch}-${VERSION}.zip" -o ./tmp/win.zip
+            if [[ $? -eq 0 && -s ./tmp/win.zip ]]; then
+              unzip -q -o ./tmp/win.zip -d ./tmp/win/ && \
+                mv -f "./tmp/win/mihomo-windows-${arch}.exe" "./mihomo/mihomo-smart-windows-${arch}.exe" || true
+              rm -rf ./tmp/win ./tmp/win.zip
+            else
+              echo "  ⚠️  跳过: windows-${arch}"
+            fi
+          done
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mihomo-smart-files
+          path: ./mihomo/*
+          retention-days: 1
+        if: hashFiles('./mihomo/*') != ''
+
+# ============================================================
+# 阶段五：收集、UPX 压缩、推送 core 分支、更新 Release
+# ============================================================
+  publish:
+    name: 发布
+    runs-on: ubuntu-latest
+    if: always()
+    needs:
+      - ref1nd_stable_version
+      - ref1nd_test_version
+      - sagernet_stable_version
+      - sagernet_test_version
+      - mihomo_meta_version
+      - mihomo_alpha_version
+      - mihomo_smart_version
+      - build_ref1nd_stable
+      - build_ref1nd_test
+      - build_sagernet_stable
+      - build_sagernet_test
+      - download_mihomo_meta
+      - download_mihomo_alpha
+      - download_mihomo_smart
+    env:
+      REF1ND_STABLE_VER:    ${{ needs.ref1nd_stable_version.outputs.version }}
+      REF1ND_STABLE_TIME:   ${{ needs.ref1nd_stable_version.outputs.time }}
+      REF1ND_STABLE_SKIP:   ${{ needs.ref1nd_stable_version.outputs.skip_update }}
+      REF1ND_TEST_VER:      ${{ needs.ref1nd_test_version.outputs.version }}
+      REF1ND_TEST_TIME:     ${{ needs.ref1nd_test_version.outputs.time }}
+      REF1ND_TEST_SKIP:     ${{ needs.ref1nd_test_version.outputs.skip_update }}
+      SAGERNET_STABLE_VER:  ${{ needs.sagernet_stable_version.outputs.version }}
+      SAGERNET_STABLE_TIME: ${{ needs.sagernet_stable_version.outputs.time }}
+      SAGERNET_STABLE_SKIP: ${{ needs.sagernet_stable_version.outputs.skip_update }}
+      SAGERNET_TEST_VER:    ${{ needs.sagernet_test_version.outputs.version }}
+      SAGERNET_TEST_TIME:   ${{ needs.sagernet_test_version.outputs.time }}
+      SAGERNET_TEST_SKIP:   ${{ needs.sagernet_test_version.outputs.skip_update }}
+      META_VER:    ${{ needs.mihomo_meta_version.outputs.version }}
+      META_TIME:   ${{ needs.mihomo_meta_version.outputs.time }}
+      META_SKIP:   ${{ needs.mihomo_meta_version.outputs.skip_update }}
+      ALPHA_VER:   ${{ needs.mihomo_alpha_version.outputs.version }}
+      ALPHA_TIME:  ${{ needs.mihomo_alpha_version.outputs.time }}
+      ALPHA_SKIP:  ${{ needs.mihomo_alpha_version.outputs.skip_update }}
+      SMART_VER:   ${{ needs.mihomo_smart_version.outputs.version }}
+      SMART_TIME:  ${{ needs.mihomo_smart_version.outputs.time }}
+      SMART_SKIP:  ${{ needs.mihomo_smart_version.outputs.skip_update }}
+
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v4
+
+      - name: 下载所有产物
+        uses: actions/download-artifact@v4
+        with:
+          path: ./tmp
+
+      - name: 检查是否有新产物
+        id: check
+        run: |
+          count=$(find ./tmp -type f 2>/dev/null | wc -l)
+          if [[ "$count" -gt 0 ]]; then
+            echo "has_artifacts=true" >> $GITHUB_OUTPUT
+            echo "发现 ${count} 个产物文件"
+            find ./tmp -type f | sort
+          else
+            echo "has_artifacts=false" >> $GITHUB_OUTPUT
+            echo "没有新产物，所有变体均已是最新"
+          fi
+
+      # ---- 整理 sing-box ----
+      - name: 整理 sing-box 产物
+        if: steps.check.outputs.has_artifacts == 'true'
+        run: |
+          mkdir -p ./sing-box
+
+          move_sb() {
+            local variant="$1"
+            local skip="$2"
+            [[ "$skip" == "true" ]] && return
+
+            local linux_archs=(amd64-v1 amd64-v3 armv5 armv6 armv7 arm64 mips-softfloat mipsle-softfloat mipsle-hardfloat)
+            for arch in "${linux_archs[@]}"; do
+              src="./tmp/sing-box-${variant}-linux-${arch}/sing-box"
+              if [[ -f "$src" ]]; then
+                dest="./sing-box/sing-box-${variant}-linux-${arch}.upx"
+                mv -f "$src" "$dest"
+                chmod +x "$dest"
+                echo "  ✅ $dest"
+              fi
+            done
+
+            local windows_archs=(amd64-v1 amd64-v3 arm64)
+            for arch in "${windows_archs[@]}"; do
+              src="./tmp/sing-box-${variant}-windows-${arch}/sing-box.exe"
+              if [[ -f "$src" ]]; then
+                dest="./sing-box/sing-box-${variant}-windows-${arch}.exe"
+                mv -f "$src" "$dest"
+                echo "  ✅ $dest"
+              fi
+            done
+          }
+
+          move_sb "ref1nd-stable"   "$REF1ND_STABLE_SKIP"
+          move_sb "ref1nd-test"     "$REF1ND_TEST_SKIP"
+          move_sb "sagernet-stable" "$SAGERNET_STABLE_SKIP"
+          move_sb "sagernet-test"   "$SAGERNET_TEST_SKIP"
+
+      # ---- 整理 mihomo ----
+      - name: 整理 mihomo 产物
+        if: steps.check.outputs.has_artifacts == 'true'
+        run: |
+          mkdir -p ./mihomo
+
+          for item in "meta:${META_SKIP}" "alpha:${ALPHA_SKIP}" "smart:${SMART_SKIP}"; do
+            variant="${item%%:*}"
+            skip="${item##*:}"
+            [[ "$skip" == "true" ]] && continue
+            src="./tmp/mihomo-${variant}-files"
+            if [[ -d "$src" ]]; then
+              mv -f "${src}"/* ./mihomo/ 2>/dev/null || true
+              # mv 不保留权限，UPX 要求可执行位，必须重新 chmod
+              find ./mihomo -name "mihomo-${variant}-*.upx" -exec chmod +x {} \;
+              echo "  ✅ mihomo-${variant} 已整理"
+            fi
+          done
+
+      # ---- UPX 压缩 ----
+      - name: Setup UPX 并压缩
+        if: steps.check.outputs.has_artifacts == 'true'
+        uses: crazy-max/ghaction-upx@v4
+        with:
+          version: latest
+          files: |
+            ./sing-box/*.upx
+            ./mihomo/*.upx
+
+      # ---- 推送 core 分支 ----
+      - name: 推送到 core 分支
+        if: steps.check.outputs.has_artifacts == 'true'
+        run: |
+          mkdir -p ./publish/sing-box ./publish/mihomo
+          [[ "$(ls -A ./sing-box 2>/dev/null)" ]] && cp -r ./sing-box/. ./publish/sing-box/
+          [[ "$(ls -A ./mihomo  2>/dev/null)" ]] && cp -r ./mihomo/.  ./publish/mihomo/
+
+          find ./publish -type f \( -name "*.upx" -o -name "*.exe" \) \
+            -exec sha256sum {} \; | sort > ./publish/checksums.txt
+
+          cd ./publish
+          git init
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b core
+          git add .
+          git commit -m "Update Cores: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
+          git push -f origin core
+
+      # ---- 发布 sing-box Release ----
+      - name: 发布 sing-box Release
+        if: |
+          steps.check.outputs.has_artifacts == 'true' &&
+          (env.REF1ND_STABLE_SKIP != 'true' || env.REF1ND_TEST_SKIP != 'true' ||
+           env.SAGERNET_STABLE_SKIP != 'true' || env.SAGERNET_TEST_SKIP != 'true')
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          release_name: sing-box
+          tag: sing-box
+          overwrite: true
+          file_glob: true
+          file: ./sing-box/*
+          body: |
+            更新 [sing-box reF1nd-Stable](https://github.com/reF1nd/sing-box/tree/reF1nd-stable) 至 v${{ env.REF1ND_STABLE_VER }}，发布于 ${{ env.REF1ND_STABLE_TIME }}
+            更新 [sing-box reF1nd-Test](https://github.com/reF1nd/sing-box/tree/reF1nd-testing) 至 v${{ env.REF1ND_TEST_VER }}，发布于 ${{ env.REF1ND_TEST_TIME }}
+            更新 [sing-box SagerNet-Stable](https://github.com/SagerNet/sing-box/tree/main) 至 v${{ env.SAGERNET_STABLE_VER }}，发布于 ${{ env.SAGERNET_STABLE_TIME }}
+            更新 [sing-box SagerNet-Test](https://github.com/SagerNet/sing-box/tree/dev) 至 v${{ env.SAGERNET_TEST_VER }}，发布于 ${{ env.SAGERNET_TEST_TIME }}
+
+      # ---- 发布 mihomo Release ----
+      - name: 发布 mihomo Release
+        if: |
+          steps.check.outputs.has_artifacts == 'true' &&
+          (env.META_SKIP != 'true' || env.ALPHA_SKIP != 'true' || env.SMART_SKIP != 'true')
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          release_name: mihomo
+          tag: mihomo
+          overwrite: true
+          file_glob: true
+          file: ./mihomo/*
+          body: |
+            更新 [mihomo Meta](https://github.com/MetaCubeX/mihomo/tree/Meta) 至 ${{ env.META_VER }}，发布于 ${{ env.META_TIME }}
+            更新 [mihomo Alpha](https://github.com/MetaCubeX/mihomo/tree/Alpha) 至 ${{ env.ALPHA_VER }}，发布于 ${{ env.ALPHA_TIME }}
+            更新 [mihomo Smart](https://github.com/vernesong/mihomo) 至 ${{ env.SMART_VER }}，发布于 ${{ env.SMART_TIME }}
+
+      - name: 清理旧 Workflow 记录
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          retain_days: 3
+          keep_minimum_runs: 1
