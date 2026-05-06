@@ -43,6 +43,7 @@ https://raw.githubusercontent.com/Seven1echo/Yaml/refs/heads/main/Seven1_fallbac
 https://raw.githubusercontent.com/Pililink/AirRules/refs/heads/main/clash/config/base-clash-ruleset.yaml|THEYAMLS/General_Config/Pililink/base-clash-ruleset.yaml
 https://raw.githubusercontent.com/Pililink/AirRules/refs/heads/main/clash/config/2-subscription-clash-rule-set.yaml|THEYAMLS/General_Config/Pililink/2-subscription-clash-rule-set.yaml
 https://raw.githubusercontent.com/Pililink/AirRules/refs/heads/main/clash/config/3-subscription-clash-rule-set.yaml|THEYAMLS/General_Config/Pililink/3-subscription-clash-rule-set.yaml
+https://raw.githubusercontent.com/ameyukisora/Clash-Rule/refs/heads/master/mihomo.yaml|THEYAMLS/General_Config/ameyukisora/mihomo.yaml
 EOF
 )
 
