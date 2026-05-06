@@ -16,6 +16,7 @@
 | 📁 **[General_Config/Repcz](./General_Config/Repcz/README.md)** | 2 个 | [点击浏览详细列表](./General_Config/Repcz/README.md) |
 | 📁 **[General_Config/SHICHUNHUI88](./General_Config/SHICHUNHUI88/README.md)** | 1 个 | [点击浏览详细列表](./General_Config/SHICHUNHUI88/README.md) |
 | 📁 **[General_Config/Seven1echo](./General_Config/Seven1echo/README.md)** | 2 个 | [点击浏览详细列表](./General_Config/Seven1echo/README.md) |
+| 📁 **[General_Config/ameyukisora](./General_Config/ameyukisora/README.md)** | 1 个 | [点击浏览详细列表](./General_Config/ameyukisora/README.md) |
 | 📁 **[General_Config/echs-top](./General_Config/echs-top/README.md)** | 1 个 | [点击浏览详细列表](./General_Config/echs-top/README.md) |
 | 📁 **[General_Config/fufu](./General_Config/fufu/README.md)** | 1 个 | [点击浏览详细列表](./General_Config/fufu/README.md) |
 | 📁 **[General_Config/iKeLee](./General_Config/iKeLee/README.md)** | 2 个 | [点击浏览详细列表](./General_Config/iKeLee/README.md) |
