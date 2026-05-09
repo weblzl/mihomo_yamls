@@ -21,7 +21,7 @@
 ### 👤 Metacubex
 
 #### 📝 geox_config.yaml
-- **路径**: `Metacubex/geox_config.yaml` | **大小**: 5.2 KB | [查看源码](https://github.com/HenryChiao/MIHOMO_YAMLS/blob/main/THEYAMLS/Official_Examples/Metacubex/geox_config.yaml)
+- **路径**: `Metacubex/geox_config.yaml` | **大小**: 5.2 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/Official_Examples/Metacubex/geox_config.yaml)
 - **模式**: rule | **TUN**: ✅ | **IPv6**: ✅
 <details>
 <summary>🔍 策略组 (20个)</summary>
@@ -51,7 +51,7 @@
 </details>
 
 #### 📝 rule-set_config.yaml
-- **路径**: `Metacubex/rule-set_config.yaml` | **大小**: 7.7 KB | [查看源码](https://github.com/HenryChiao/MIHOMO_YAMLS/blob/main/THEYAMLS/Official_Examples/Metacubex/rule-set_config.yaml)
+- **路径**: `Metacubex/rule-set_config.yaml` | **大小**: 7.7 KB | [查看源码](https://github.com/weblzl/mihomo_yamls/blob/main/THEYAMLS/Official_Examples/Metacubex/rule-set_config.yaml)
 - **模式**: rule | **TUN**: ✅ | **IPv6**: ✅
 <details>
 <summary>🔍 策略组 (20个)</summary>
